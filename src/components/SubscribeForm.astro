@@ -87,11 +87,8 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
 
 <script is:inline>
   const subscribeForm = document.getElementById("subscribe-form");
-  const subscribeFormContainer = document.getElementById("subscribe-form-container");
-  const subscribeSuccessContainer = document.getElementById("subscribe-success");
   const subscribeEmailInput = document.getElementById("email");
   const subscribeEmailError = document.getElementById("email-error");
-  const subscribeSubmitButton = document.getElementById("subscribe-button");
   
   function showSubscribeError(message) {
     if (subscribeEmailError) {
@@ -112,66 +109,28 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
     return emailRegex.test(email);
   }
   
-  function showSubscribeSuccess() {
-    subscribeFormContainer?.classList.add("hidden");
-    subscribeSuccessContainer?.classList.remove("hidden");
-  }
-  
   subscribeEmailInput?.addEventListener("input", () => {
     clearSubscribeError();
   });
   
-  subscribeForm?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  subscribeForm?.addEventListener("submit", (e) => {
     clearSubscribeError();
     
     const email = subscribeEmailInput?.value?.trim();
     
     // Validate email
     if (!email) {
+      e.preventDefault();
       showSubscribeError("Email is required");
       return;
     }
     
     if (!validateSubscribeEmail(email)) {
+      e.preventDefault();
       showSubscribeError("Please enter a valid email address");
       return;
     }
     
-    // Disable button during submission
-    if (subscribeSubmitButton) {
-      subscribeSubmitButton.disabled = true;
-      subscribeSubmitButton.textContent = "Subscribing...";
-    }
-    
-    try {
-      // Submit to / endpoint
-      const response = await fetch("/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-        }),
-      });
-      
-      if (response.ok) {
-        showSubscribeSuccess();
-      } else {
-        const data = await response.json();
-        showSubscribeError(data.message || "Something went wrong. Please try again.");
-        if (subscribeSubmitButton) {
-          subscribeSubmitButton.disabled = false;
-          subscribeSubmitButton.textContent = "Subscribe to .NET drip";
-        }
-      }
-    } catch (error) {
-      showSubscribeError("Something went wrong. Please try again.");
-      if (subscribeSubmitButton) {
-        subscribeSubmitButton.disabled = false;
-        subscribeSubmitButton.textContent = "Subscribe to .NET drip";
-      }
-    }
+    // Validation passed - allow form to submit naturally
   });
 </script>

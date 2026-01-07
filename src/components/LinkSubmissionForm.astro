@@ -139,9 +139,6 @@ const { class: className = "" } = Astro.props;
 
 <script is:inline>
   const linkForm = document.getElementById("link-submission-form");
-  const linkFormContainer = document.getElementById("link-form-container");
-  const linkSuccessContainer = document.getElementById("link-success");
-  const linkSubmitButton = document.getElementById("link-submit-button");
   
   function showLinkError(field, message) {
     const errorEl = document.querySelector(`[data-error="${field}"]`);
@@ -156,11 +153,6 @@ const { class: className = "" } = Astro.props;
       el.textContent = "";
       el.classList.add("hidden");
     });
-  }
-  
-  function showLinkSuccess() {
-    linkFormContainer?.classList.add("hidden");
-    linkSuccessContainer?.classList.remove("hidden");
   }
   
   function validateLinkForm(formData) {
@@ -204,45 +196,14 @@ const { class: className = "" } = Astro.props;
     return isValid;
   }
   
-  linkForm?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  linkForm?.addEventListener("submit", (e) => {
     const formData = new FormData(linkForm);
     
     if (!validateLinkForm(formData)) {
+      e.preventDefault();
       return;
     }
     
-    // Disable button during submission
-    if (linkSubmitButton) {
-      linkSubmitButton.disabled = true;
-      linkSubmitButton.textContent = "Submitting...";
-    }
-    
-    try {
-      // Submit to Netlify Forms
-      const response = await fetch("/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams(formData).toString(),
-      });
-      
-      if (response.ok) {
-        showLinkSuccess();
-      } else {
-        showLinkError("description", "Something went wrong. Please try again.");
-        if (linkSubmitButton) {
-          linkSubmitButton.disabled = false;
-          linkSubmitButton.textContent = "Submit Link";
-        }
-      }
-    } catch (error) {
-      showLinkError("description", "Something went wrong. Please try again.");
-      if (linkSubmitButton) {
-        linkSubmitButton.disabled = false;
-        linkSubmitButton.textContent = "Submit Link";
-      }
-    }
+    // Validation passed - allow form to submit naturally
   });
 </script>
