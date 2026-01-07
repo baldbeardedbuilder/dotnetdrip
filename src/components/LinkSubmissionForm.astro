@@ -137,13 +137,13 @@ const { class: className = "" } = Astro.props;
   </div>
 </div>
 
-<script>
-  const form = document.getElementById("link-submission-form") as HTMLFormElement;
+<script is:inline>
+  const form = document.getElementById("link-submission-form");
   const formContainer = document.getElementById("link-form-container");
   const successContainer = document.getElementById("link-success");
-  const submitButton = document.getElementById("link-submit-button") as HTMLButtonElement;
+  const submitButton = document.getElementById("link-submit-button");
   
-  function showError(field: string, message: string) {
+  function showError(field, message) {
     const errorEl = document.querySelector(`[data-error="${field}"]`);
     if (errorEl) {
       errorEl.textContent = message;
@@ -163,14 +163,14 @@ const { class: className = "" } = Astro.props;
     successContainer?.classList.remove("hidden");
   }
   
-  function validateForm(formData: FormData): boolean {
+  function validateForm(formData) {
     clearErrors();
     let isValid = true;
     
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const link = formData.get("link") as string;
-    const description = formData.get("description") as string;
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const link = formData.get("link");
+    const description = formData.get("description");
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
@@ -225,7 +225,7 @@ const { class: className = "" } = Astro.props;
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: new URLSearchParams(formData as any).toString(),
+        body: new URLSearchParams(formData).toString(),
       });
       
       if (response.ok) {

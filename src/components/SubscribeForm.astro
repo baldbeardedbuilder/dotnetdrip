@@ -85,15 +85,15 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
   </div>
 </div>
 
-<script>
-  const form = document.getElementById("subscribe-form") as HTMLFormElement;
+<script is:inline>
+  const form = document.getElementById("subscribe-form");
   const formContainer = document.getElementById("subscribe-form-container");
   const successContainer = document.getElementById("subscribe-success");
-  const emailInput = document.getElementById("email") as HTMLInputElement;
+  const emailInput = document.getElementById("email");
   const emailError = document.getElementById("email-error");
-  const submitButton = document.getElementById("subscribe-button") as HTMLButtonElement;
+  const submitButton = document.getElementById("subscribe-button");
   
-  function showError(message: string) {
+  function showError(message) {
     if (emailError) {
       emailError.textContent = message;
       emailError.classList.remove("hidden");
@@ -107,7 +107,7 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
     }
   }
   
-  function validateEmail(email: string): boolean {
+  function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
