@@ -1,0 +1,248 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<div class:list={["w-full max-w-2xl", className]}>
+  <!-- Form State (visible by default) -->
+  <div id="link-form-container">
+    <h2 class="text-xl font-semibold text-center mb-2 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
+      Submit a Link
+    </h2>
+    <p class="text-lg text-text-secondary text-center mb-6">
+      Have a great C# or .NET resource to share? Submit it for the next newsletter.
+    </p>
+    
+    <form class="space-y-6 text-left" action="/submit" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field">
+      <p class="hidden">
+        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="submitter-name" class="block text-base font-medium text-text-primary mb-2">
+            Your Name
+          </label>
+          <input
+            type="text"
+            id="submitter-name"
+            name="name"
+            placeholder="John Doe"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+          />
+          <p class="mt-2 text-sm text-red-500 hidden" data-error="name"></p>
+        </div>
+
+        <div>
+          <label for="submitter-email" class="block text-base font-medium text-text-primary mb-2">
+            Your Email
+          </label>
+          <input
+            type="email"
+            id="submitter-email"
+            name="email"
+            placeholder="you@example.com"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+          />
+          <p class="mt-2 text-sm text-red-500 hidden" data-error="email"></p>
+        </div>
+      </div>
+
+      <div>
+        <label for="link-url" class="block text-base font-medium text-text-primary mb-2">
+          Link URL
+        </label>
+        <input
+          type="url"
+          id="link-url"
+          name="link"
+          placeholder="https://example.com/awesome-csharp-article"
+          required
+          class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+        />
+        <p class="mt-2 text-sm text-red-500 hidden" data-error="link"></p>
+      </div>
+
+      <div>
+        <label for="link-description" class="block text-base font-medium text-text-primary mb-2">
+          Description
+        </label>
+        <textarea
+          id="link-description"
+          name="description"
+          placeholder="Tell us why this link is interesting and relevant to C# and .NET developers..."
+          rows={4}
+          required
+          class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 resize-none"
+        ></textarea>
+        <p class="mt-2 text-sm text-red-500 hidden" data-error="description"></p>
+      </div>
+
+      <button
+        type="submit"
+        id="link-submit-button"
+        class="w-full px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-medium rounded-lg hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Submit Link
+      </button>
+    </form>
+  </div>
+
+  <!-- Success State (hidden by default) -->
+  <div id="link-success" class="hidden">
+    <h2 class="text-xl font-semibold text-center mb-4 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
+      Thank You for Your Submission!
+    </h2>
+    <p class="text-lg text-text-secondary text-center mb-6">
+      We appreciate you sharing valuable content with the .NET community.
+    </p>
+    
+    <div class="flex flex-col items-center text-center space-y-6">
+      <div class="relative">
+        <div class="absolute inset-0 bg-blue-500/20 dark:bg-blue-400/30 blur-2xl rounded-full"></div>
+        <svg class="relative w-16 h-16 text-blue-600 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="m9 12 2 2 4-4"></path>
+        </svg>
+      </div>
+      
+      <div class="space-y-3">
+        <h3 class="text-2xl font-semibold text-text-primary">Link Received!</h3>
+        <p class="text-text-secondary max-w-lg">
+          Our editorial team will review your submission for inclusion in an upcoming newsletter. Quality content like yours helps make .NET drip valuable for everyone.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-6 pt-4 text-sm">
+        <div class="flex items-center gap-2 text-text-secondary">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+          <span>We review submissions within 48 hours</span>
+        </div>
+        <div class="flex items-center gap-2 text-text-secondary">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+          <span>You'll be notified if it's featured</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("link-submission-form") as HTMLFormElement;
+  const formContainer = document.getElementById("link-form-container");
+  const successContainer = document.getElementById("link-success");
+  const submitButton = document.getElementById("link-submit-button") as HTMLButtonElement;
+  
+  function showError(field: string, message: string) {
+    const errorEl = document.querySelector(`[data-error="${field}"]`);
+    if (errorEl) {
+      errorEl.textContent = message;
+      errorEl.classList.remove("hidden");
+    }
+  }
+  
+  function clearErrors() {
+    document.querySelectorAll("[data-error]").forEach(el => {
+      el.textContent = "";
+      el.classList.add("hidden");
+    });
+  }
+  
+  function showSuccess() {
+    formContainer?.classList.add("hidden");
+    successContainer?.classList.remove("hidden");
+  }
+  
+  function validateForm(formData: FormData): boolean {
+    clearErrors();
+    let isValid = true;
+    
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const link = formData.get("link") as string;
+    const description = formData.get("description") as string;
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    
+    if (!name?.trim()) {
+      showError("name", "Name is required");
+      isValid = false;
+    }
+    
+    if (!email) {
+      showError("email", "Email is required");
+      isValid = false;
+    } else if (!emailRegex.test(email)) {
+      showError("email", "Please enter a valid email address");
+      isValid = false;
+    }
+    
+    if (!link) {
+      showError("link", "Link is required");
+      isValid = false;
+    } else if (!urlRegex.test(link)) {
+      showError("link", "Please enter a valid URL");
+      isValid = false;
+    }
+    
+    if (!description?.trim()) {
+      showError("description", "Description is required");
+      isValid = false;
+    }
+    
+    return isValid;
+  }
+  
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    
+    if (!validateForm(formData)) {
+      return;
+    }
+    
+    // Disable button during submission
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting...";
+    }
+    
+    try {
+      // Submit to Netlify Forms
+      const response = await fetch("/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      
+      if (response.ok) {
+        showSuccess();
+      } else {
+        showError("description", "Something went wrong. Please try again.");
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = "Submit Link";
+        }
+      }
+    } catch (error) {
+      showError("description", "Something went wrong. Please try again.");
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Link";
+      }
+    }
+  });
+</script>

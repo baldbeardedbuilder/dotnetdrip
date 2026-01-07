@@ -1,0 +1,111 @@
+---
+import "../styles/global.css";
+import ThemeToggle from "../components/ThemeToggle.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Your weekly dose of C# and .NET programming insights, tutorials, and community news delivered straight to your inbox." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200,400;500;600;700;800&display=swap" rel="stylesheet" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <!-- Inline script to prevent flash of wrong theme -->
+    <script is:inline>
+      const theme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (theme === "dark" || (!theme && prefersDark)) {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+  </head>
+  <body class="min-h-screen bg-background font-sans antialiased transition-colors duration-200">
+    <!-- Theme Toggle -->
+    <div class="fixed top-6 right-6 z-50">
+      <ThemeToggle />
+    </div>
+
+    <!-- Animated background gradients -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-indigo-400/20 via-purple-400/10 to-transparent dark:from-indigo-500/15 dark:via-purple-500/8 rounded-full blur-3xl animate-pulse" style="animation-duration: 8s;"></div>
+      <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-blue-400/20 via-cyan-400/10 to-transparent dark:from-blue-500/12 dark:via-cyan-500/6 rounded-full blur-3xl animate-pulse" style="animation-duration: 10s; animation-delay: 1s;"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-gradient-to-r from-violet-400/10 via-fuchsia-400/10 to-transparent dark:from-violet-500/10 dark:via-fuchsia-500/6 rounded-full blur-3xl animate-pulse" style="animation-duration: 12s; animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Floating orbs / lens flares -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+      <!-- Large orbs -->
+      <div class="absolute top-[10%] left-[15%] w-16 h-16 bg-gradient-to-br from-indigo-500/30 to-purple-600/20 dark:from-indigo-400/40 dark:to-purple-500/25 rounded-full blur-2xl animate-bounce" style="animation-duration: 6s;"></div>
+      <div class="absolute top-[20%] right-[10%] w-12 h-12 bg-gradient-to-br from-purple-500/25 to-pink-500/15 dark:from-purple-400/35 dark:to-pink-400/20 rounded-full blur-2xl animate-bounce" style="animation-duration: 7s; animation-delay: 0.5s;"></div>
+      <div class="absolute bottom-[25%] left-[8%] w-14 h-14 bg-gradient-to-br from-blue-500/25 to-cyan-500/15 dark:from-blue-400/35 dark:to-cyan-400/20 rounded-full blur-2xl animate-bounce" style="animation-duration: 8s; animation-delay: 1s;"></div>
+      <div class="absolute bottom-[15%] right-[20%] w-10 h-10 bg-gradient-to-br from-violet-500/30 to-indigo-500/20 dark:from-violet-400/40 dark:to-indigo-400/25 rounded-full blur-2xl animate-bounce" style="animation-duration: 5s; animation-delay: 1.5s;"></div>
+      
+      <!-- Medium orbs -->
+      <div class="absolute top-[40%] left-[5%] w-8 h-8 bg-gradient-to-br from-indigo-400/35 to-indigo-600/20 dark:from-indigo-400/45 dark:to-indigo-500/30 rounded-full blur-xl animate-bounce" style="animation-duration: 4s; animation-delay: 0.3s;"></div>
+      <div class="absolute top-[60%] right-[8%] w-7 h-7 bg-gradient-to-br from-purple-400/30 to-purple-600/15 dark:from-purple-400/40 dark:to-purple-500/25 rounded-full blur-xl animate-bounce" style="animation-duration: 5s; animation-delay: 2s;"></div>
+      <div class="absolute top-[15%] left-[40%] w-6 h-6 bg-gradient-to-br from-cyan-400/25 to-blue-500/15 dark:from-cyan-400/35 dark:to-blue-400/20 rounded-full blur-xl animate-bounce" style="animation-duration: 6s; animation-delay: 0.8s;"></div>
+      <div class="absolute bottom-[35%] right-[35%] w-8 h-8 bg-gradient-to-br from-fuchsia-400/25 to-pink-500/15 dark:from-fuchsia-400/35 dark:to-pink-400/20 rounded-full blur-xl animate-bounce" style="animation-duration: 7s; animation-delay: 2.5s;"></div>
+      
+      <!-- Small orbs / sparkles -->
+      <div class="absolute top-[25%] left-[25%] w-6 h-6 bg-gradient-to-br from-indigo-400/50 to-indigo-600/30 dark:from-indigo-300/55 dark:to-indigo-500/35 rounded-full blur-md animate-bounce" style="animation-duration: 3s;"></div>
+      <div class="absolute top-[45%] right-[25%] w-4 h-4 bg-gradient-to-br from-purple-400/50 to-purple-600/30 dark:from-purple-300/55 dark:to-purple-500/35 rounded-full blur-md animate-bounce" style="animation-duration: 4s; animation-delay: 1s;"></div>
+      <div class="absolute bottom-[40%] left-[30%] w-5 h-5 bg-gradient-to-br from-blue-400/50 to-blue-600/30 dark:from-blue-300/55 dark:to-blue-500/35 rounded-full blur-md animate-bounce" style="animation-duration: 3.5s; animation-delay: 0.5s;"></div>
+      <div class="absolute top-[70%] left-[20%] w-3 h-3 bg-gradient-to-br from-cyan-400/50 to-cyan-600/30 dark:from-cyan-300/55 dark:to-cyan-500/35 rounded-full blur-sm animate-bounce" style="animation-duration: 2.5s; animation-delay: 1.5s;"></div>
+      <div class="absolute top-[30%] right-[30%] w-4 h-4 bg-gradient-to-br from-violet-400/50 to-violet-600/30 dark:from-violet-300/55 dark:to-violet-500/35 rounded-full blur-sm animate-bounce" style="animation-duration: 3s; animation-delay: 2s;"></div>
+      <div class="absolute bottom-[20%] left-[45%] w-3 h-3 bg-gradient-to-br from-pink-400/50 to-pink-600/30 dark:from-pink-300/55 dark:to-pink-500/35 rounded-full blur-sm animate-bounce" style="animation-duration: 4s; animation-delay: 0.7s;"></div>
+    </div>
+
+    <!-- Grid backgrounds -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+      <!-- Large grid - light mode -->
+      <div 
+        class="absolute inset-0 opacity-[0.08] dark:opacity-0"
+        style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 40px 40px;"
+      ></div>
+      <!-- Large grid - dark mode -->
+      <div 
+        class="absolute inset-0 opacity-0 dark:opacity-[0.25]"
+        style="background-image: linear-gradient(to right, rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 40px 40px;"
+      ></div>
+      <!-- Small grid overlay - light mode -->
+      <div 
+        class="absolute inset-0 opacity-[0.06] dark:opacity-0"
+        style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 10px 10px;"
+      ></div>
+      <!-- Small grid overlay - dark mode -->
+      <div 
+        class="absolute inset-0 opacity-0 dark:opacity-[0.15]"
+        style="background-image: linear-gradient(to right, rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 10px 10px;"
+      ></div>
+      <!-- Radial grid fade -->
+      <div 
+        class="absolute inset-0"
+        style="background: radial-gradient(circle at center, transparent 0%, var(--color-background) 70%);"
+      ></div>
+    </div>
+
+    <!-- Accent grid lines -->
+    <div class="fixed inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.15]">
+      <!-- Horizontal accent lines -->
+      <div class="absolute top-1/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
+      <div class="absolute top-3/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div>
+      <!-- Vertical accent lines -->
+      <div class="absolute left-1/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-indigo-500 to-transparent"></div>
+      <div class="absolute left-3/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-purple-500 to-transparent"></div>
+    </div>
+
+    <slot />
+  </body>
+</html>

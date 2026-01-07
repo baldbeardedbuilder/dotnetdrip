@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Logo from "../components/Logo.astro";
+import SubscribeForm from "../components/SubscribeForm.astro";
+import LinkSubmissionForm from "../components/LinkSubmissionForm.astro";
+---
+
+<Layout title=".NET drip - Your Regular Dose of C# and .NET">
+  <main class="min-h-screen flex flex-col items-center justify-center px-4 py-16 relative z-10">
+    <!-- Gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-transparent dark:from-[#111111]/20 dark:via-[#111111]/10 dark:to-transparent pointer-events-none"></div>
+    
+    <div class="max-w-2xl mx-auto text-center space-y-8 relative z-10">
+      <!-- Glowing effect behind logo -->
+      <div class="relative flex justify-center items-center mt-8">
+        <div class="absolute w-72 h-72 blur-3xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-20 dark:opacity-30 rounded-full"></div>
+        <Logo />
+      </div>
+      
+      <!-- Tagline -->
+      <p class="text-lg text-text-secondary leading-relaxed max-w-xl mx-auto">
+        Your regular dose of <span class="text-indigo-600 dark:text-indigo-400 font-medium">C#</span> and <span class="text-purple-600 dark:text-purple-400 font-medium">.NET</span> programming insights, tutorials, and 
+        community news delivered straight to your inbox.
+      </p>
+      
+      <!-- Subscribe Form -->
+      <div class="flex justify-center pt-4">
+        <SubscribeForm />
+      </div>
+      
+      <!-- Link Submission Form -->
+      <div class="flex justify-center pt-32 mt-12 relative">
+        <div class="relative">
+          <!-- Decorative gradient blobs off to the sides -->
+          <div class="absolute -left-64 top-1/4 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-cyan-400/15 to-blue-500/10 dark:from-cyan-500/20 dark:to-blue-600/15 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="absolute -right-64 top-3/4 -translate-y-1/2 w-48 h-48 bg-gradient-to-tl from-fuchsia-400/15 to-purple-500/10 dark:from-fuchsia-500/20 dark:to-purple-600/15 rounded-full blur-2xl pointer-events-none"></div>
+          
+          <!-- Glow effect behind form -->
+          <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 dark:from-cyan-500/30 dark:via-blue-500/30 dark:to-purple-500/30 rounded-2xl blur-2xl"></div>
+          <!-- Card wrapper -->
+          <div class="relative bg-white/80 dark:bg-surface/50 backdrop-blur-sm border border-border rounded-2xl p-8 shadow-2xl">
+            <LinkSubmissionForm />
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="relative py-12 px-6 border-t border-border z-10">
+    <!-- Light mode gradient (white) -->
+    <div class="absolute inset-0 dark:hidden" style="background: linear-gradient(to bottom, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.5) 100%);"></div>
+    <!-- Dark mode gradient (dark gray) -->
+    <div class="absolute inset-0 hidden dark:block" style="background: linear-gradient(to bottom, rgba(17,17,17,0.95) 20%, rgba(17,17,17,0.5) 100%);"></div>
+    <div class="max-w-4xl mx-auto relative z-10">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-2">
+          <img src="/images/logo.svg" alt=".NETdrip Logo" class="h-8 w-8" />
+          <div class="flex items-baseline">
+            <span class="text-xl font-bold text-primary">.NET</span>
+            <span class="text-xl font-light text-primary-light">drip</span>
+          </div>
+        </div>
+        
+        <div class="text-center md:text-right">
+          <p class="text-sm text-text-secondary">
+            &copy; {new Date().getFullYear()} .NET drip. Keeping you current with C# and .NET.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</Layout>

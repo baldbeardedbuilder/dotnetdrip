@@ -1,0 +1,22 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dropletGradient" x1="16" y1="0" x2="16" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7C7CDE" />
+      <stop offset="50%" stop-color="#5B5BD6" />
+      <stop offset="100%" stop-color="#4A4ABF" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M16 0C16 0 0 14 0 22C0 27.523 7.163 32 16 32C24.837 32 32 27.523 32 22C32 14 16 0 16 0Z"
+    fill="url(#dropletGradient)"
+  />
+  <ellipse
+    cx="12"
+    cy="12"
+    rx="4"
+    ry="5"
+    fill="white"
+    fill-opacity="0.4"
+    transform="rotate(-15 12 12)"
+  />
+</svg>

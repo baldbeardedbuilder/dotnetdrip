@@ -1,0 +1,18 @@
+---
+interface Props {
+  class?: string;
+  showText?: boolean;
+}
+
+const { class: className = "", showText = true } = Astro.props;
+---
+
+<div class:list={["flex items-center gap-3", className]}>
+  <img src="/images/logo.svg" alt=".NETdrip Logo" class:list={[showText ? "h-24 w-24" : "h-10 w-10", !showText && className]} />  
+  {showText && (
+    <div class="flex items-baseline">
+      <span class="text-6xl font-bold text-primary">.NET</span>
+      <span class="text-6xl font-light text-primary-light">drip</span>
+    </div>
+  )}
+</div>
