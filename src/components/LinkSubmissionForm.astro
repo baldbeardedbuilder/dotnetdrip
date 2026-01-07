@@ -16,7 +16,7 @@ const { class: className = "" } = Astro.props;
       Have a great C# or .NET resource to share? Submit it for the next newsletter.
     </p>
     
-    <form class="space-y-6 text-left" action="/submit" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field">
+    <form class="space-y-6 text-left" action="/" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field">
       <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
       </p>
@@ -138,12 +138,12 @@ const { class: className = "" } = Astro.props;
 </div>
 
 <script is:inline>
-  const form = document.getElementById("link-submission-form");
-  const formContainer = document.getElementById("link-form-container");
-  const successContainer = document.getElementById("link-success");
-  const submitButton = document.getElementById("link-submit-button");
+  const linkForm = document.getElementById("link-submission-form");
+  const linkFormContainer = document.getElementById("link-form-container");
+  const linkSuccessContainer = document.getElementById("link-success");
+  const linkSubmitButton = document.getElementById("link-submit-button");
   
-  function showError(field, message) {
+  function showLinkError(field, message) {
     const errorEl = document.querySelector(`[data-error="${field}"]`);
     if (errorEl) {
       errorEl.textContent = message;
@@ -151,20 +151,20 @@ const { class: className = "" } = Astro.props;
     }
   }
   
-  function clearErrors() {
+  function clearLinkErrors() {
     document.querySelectorAll("[data-error]").forEach(el => {
       el.textContent = "";
       el.classList.add("hidden");
     });
   }
   
-  function showSuccess() {
-    formContainer?.classList.add("hidden");
-    successContainer?.classList.remove("hidden");
+  function showLinkSuccess() {
+    linkFormContainer?.classList.add("hidden");
+    linkSuccessContainer?.classList.remove("hidden");
   }
   
-  function validateForm(formData) {
-    clearErrors();
+  function validateLinkForm(formData) {
+    clearLinkErrors();
     let isValid = true;
     
     const name = formData.get("name");
@@ -176,51 +176,51 @@ const { class: className = "" } = Astro.props;
     const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
     
     if (!name?.trim()) {
-      showError("name", "Name is required");
+      showLinkError("name", "Name is required");
       isValid = false;
     }
     
     if (!email) {
-      showError("email", "Email is required");
+      showLinkError("email", "Email is required");
       isValid = false;
     } else if (!emailRegex.test(email)) {
-      showError("email", "Please enter a valid email address");
+      showLinkError("email", "Please enter a valid email address");
       isValid = false;
     }
     
     if (!link) {
-      showError("link", "Link is required");
+      showLinkError("link", "Link is required");
       isValid = false;
     } else if (!urlRegex.test(link)) {
-      showError("link", "Please enter a valid URL");
+      showLinkError("link", "Please enter a valid URL");
       isValid = false;
     }
     
     if (!description?.trim()) {
-      showError("description", "Description is required");
+      showLinkError("description", "Description is required");
       isValid = false;
     }
     
     return isValid;
   }
   
-  form?.addEventListener("submit", async (e) => {
+  linkForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const formData = new FormData(form);
+    const formData = new FormData(linkForm);
     
-    if (!validateForm(formData)) {
+    if (!validateLinkForm(formData)) {
       return;
     }
     
     // Disable button during submission
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.textContent = "Submitting...";
+    if (linkSubmitButton) {
+      linkSubmitButton.disabled = true;
+      linkSubmitButton.textContent = "Submitting...";
     }
     
     try {
       // Submit to Netlify Forms
-      const response = await fetch("/submit", {
+      const response = await fetch("/", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -229,19 +229,19 @@ const { class: className = "" } = Astro.props;
       });
       
       if (response.ok) {
-        showSuccess();
+        showLinkSuccess();
       } else {
-        showError("description", "Something went wrong. Please try again.");
-        if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.textContent = "Submit Link";
+        showLinkError("description", "Something went wrong. Please try again.");
+        if (linkSubmitButton) {
+          linkSubmitButton.disabled = false;
+          linkSubmitButton.textContent = "Submit Link";
         }
       }
     } catch (error) {
-      showError("description", "Something went wrong. Please try again.");
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Link";
+      showLinkError("description", "Something went wrong. Please try again.");
+      if (linkSubmitButton) {
+        linkSubmitButton.disabled = false;
+        linkSubmitButton.textContent = "Submit Link";
       }
     }
   });

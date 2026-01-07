@@ -14,7 +14,7 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
       Subscribe to the Newsletter
     </h2>
     
-    <form class="space-y-4" action="/submit" method="POST" id="subscribe-form" name="net-drip" data-netlify="true" netlify-honeypot="bot-field">
+    <form class="space-y-4" action="/" method="POST" id="subscribe-form" name="net-drip" data-netlify="true" netlify-honeypot="bot-field">
       <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
       </p>
@@ -86,68 +86,67 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
 </div>
 
 <script is:inline>
-  const form = document.getElementById("subscribe-form");
-  const formContainer = document.getElementById("subscribe-form-container");
-  const successContainer = document.getElementById("subscribe-success");
-  const emailInput = document.getElementById("email");
-  const emailError = document.getElementById("email-error");
-  const submitButton = document.getElementById("subscribe-button");
+  const subscribeForm = document.getElementById("subscribe-form");
+  const subscribeFormContainer = document.getElementById("subscribe-form-container");
+  const subscribeSuccessContainer = document.getElementById("subscribe-success");
+  const subscribeEmailInput = document.getElementById("email");
+  const subscribeEmailError = document.getElementById("email-error");
+  const subscribeSubmitButton = document.getElementById("subscribe-button");
   
-  function showError(message) {
-    if (emailError) {
-      emailError.textContent = message;
-      emailError.classList.remove("hidden");
+  function showSubscribeError(message) {
+    if (subscribeEmailError) {
+      subscribeEmailError.textContent = message;
+      subscribeEmailError.classList.remove("hidden");
     }
   }
   
-  function clearError() {
-    if (emailError) {
-      emailError.textContent = "";
-      emailError.classList.add("hidden");
+  function clearSubscribeError() {
+    if (subscribeEmailError) {
+      subscribeEmailError.textContent = "";
+      subscribeEmailError.classList.add("hidden");
     }
   }
   
-  function validateEmail(email) {
+  function validateSubscribeEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
   
-  function showSuccess() {
-    formContainer?.classList.add("hidden");
-    successContainer?.classList.remove("hidden");
+  function showSubscribeSuccess() {
+    subscribeFormContainer?.classList.add("hidden");
+    subscribeSuccessContainer?.classList.remove("hidden");
   }
   
-  emailInput?.addEventListener("input", () => {
-    clearError();
+  subscribeEmailInput?.addEventListener("input", () => {
+    clearSubscribeError();
   });
   
-  form?.addEventListener("submit", async (e) => {
+  subscribeForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    clearError();
+    clearSubscribeError();
     
-    const email = emailInput?.value?.trim();
-    const formId = form.dataset.formid;
+    const email = subscribeEmailInput?.value?.trim();
     
     // Validate email
     if (!email) {
-      showError("Email is required");
+      showSubscribeError("Email is required");
       return;
     }
     
-    if (!validateEmail(email)) {
-      showError("Please enter a valid email address");
+    if (!validateSubscribeEmail(email)) {
+      showSubscribeError("Please enter a valid email address");
       return;
     }
     
     // Disable button during submission
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.textContent = "Subscribing...";
+    if (subscribeSubmitButton) {
+      subscribeSubmitButton.disabled = true;
+      subscribeSubmitButton.textContent = "Subscribing...";
     }
     
     try {
-      // Submit to /submit endpoint
-      const response = await fetch("/submit", {
+      // Submit to / endpoint
+      const response = await fetch("/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,20 +157,20 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
       });
       
       if (response.ok) {
-        showSuccess();
+        showSubscribeSuccess();
       } else {
         const data = await response.json();
-        showError(data.message || "Something went wrong. Please try again.");
-        if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.textContent = "Subscribe to .NET drip";
+        showSubscribeError(data.message || "Something went wrong. Please try again.");
+        if (subscribeSubmitButton) {
+          subscribeSubmitButton.disabled = false;
+          subscribeSubmitButton.textContent = "Subscribe to .NET drip";
         }
       }
     } catch (error) {
-      showError("Something went wrong. Please try again.");
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = "Subscribe to .NET drip";
+      showSubscribeError("Something went wrong. Please try again.");
+      if (subscribeSubmitButton) {
+        subscribeSubmitButton.disabled = false;
+        subscribeSubmitButton.textContent = "Subscribe to .NET drip";
       }
     }
   });
