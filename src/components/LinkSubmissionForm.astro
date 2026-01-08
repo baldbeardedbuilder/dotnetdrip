@@ -9,13 +9,6 @@ const { class: className = "" } = Astro.props;
 <div class:list={["w-full max-w-2xl", className]}>
   <!-- Form State (visible by default) -->
   <div id="link-form-container">
-    <h2 class="text-xl font-semibold text-center mb-2 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
-      Submit a Link
-    </h2>
-    <p class="text-lg text-text-secondary text-center mb-6">
-      Have a great C# or .NET resource to share? Submit it for the next newsletter.
-    </p>
-    
     <form class="space-y-6 text-left" action="/?linked=true" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field2">
       <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field2" /></label>
