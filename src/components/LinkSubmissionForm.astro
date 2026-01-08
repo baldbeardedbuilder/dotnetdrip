@@ -122,13 +122,15 @@ const { class: className = "" } = Astro.props;
           </svg>
           <span>We review submissions within 48 hours</span>
         </div>
-        <div class="flex items-center gap-2 text-text-secondary">
+        <a href="#" id="reset-link-form" class="flex items-center gap-2 text-text-secondary hover:text-primary transition-colors">
           <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+            <path d="M21 3v5h-5"></path>
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+            <path d="M8 16H3v5"></path>
           </svg>
-          <span>You'll be notified if it's featured</span>
-        </div>
+          <span>Click here to submit another link.</span>
+        </a>
       </div>
     </div>
   </div>
@@ -201,5 +203,22 @@ const { class: className = "" } = Astro.props;
     }
     
     // Validation passed - allow form to submit naturally
+  });
+
+  // Handle reset link click
+  const resetLinkBtn = document.getElementById("reset-link-form");
+  resetLinkBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const formContainer = document.getElementById('link-form-container');
+    const successContainer = document.getElementById('link-success');
+    if (formContainer && successContainer) {
+      successContainer.classList.add('hidden');
+      formContainer.classList.remove('hidden');
+      linkForm?.reset();
+    }
+    // Remove query param from URL
+    const url = new URL(window.location.href);
+    url.searchParams.delete('linked');
+    window.history.replaceState({}, '', url);
   });
 </script>
