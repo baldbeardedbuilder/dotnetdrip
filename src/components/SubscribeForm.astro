@@ -14,7 +14,7 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
       Subscribe to the Newsletter
     </h2>
     
-    <form class="space-y-4" action="/" method="POST" id="subscribe-form" name="net-drip" data-netlify="true" netlify-honeypot="bot-field">
+    <form class="space-y-4" action="/?subscribed=true" method="POST" id="subscribe-form" name="net-drip" data-netlify="true" netlify-honeypot="bot-field">
       <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
       </p>
@@ -86,6 +86,19 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
 </div>
 
 <script is:inline>
+  // Check for success query param on page load
+  (function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('subscribed') === 'true') {
+      const formContainer = document.getElementById('subscribe-form-container');
+      const successContainer = document.getElementById('subscribe-success');
+      if (formContainer && successContainer) {
+        formContainer.classList.add('hidden');
+        successContainer.classList.remove('hidden');
+      }
+    }
+  })();
+
   const subscribeForm = document.getElementById("subscribe-form");
   const subscribeEmailInput = document.getElementById("email");
   const subscribeEmailError = document.getElementById("email-error");

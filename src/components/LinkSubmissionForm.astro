@@ -16,7 +16,7 @@ const { class: className = "" } = Astro.props;
       Have a great C# or .NET resource to share? Submit it for the next newsletter.
     </p>
     
-    <form class="space-y-6 text-left" action="/" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field2">
+    <form class="space-y-6 text-left" action="/?linked=true" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field2">
       <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field2" /></label>
       </p>
@@ -138,6 +138,19 @@ const { class: className = "" } = Astro.props;
 </div>
 
 <script is:inline>
+  // Check for success query param on page load
+  (function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('linked') === 'true') {
+      const formContainer = document.getElementById('link-form-container');
+      const successContainer = document.getElementById('link-success');
+      if (formContainer && successContainer) {
+        formContainer.classList.add('hidden');
+        successContainer.classList.remove('hidden');
+      }
+    }
+  })();
+
   const linkForm = document.getElementById("link-submission-form");
   
   function showLinkError(field, message) {
