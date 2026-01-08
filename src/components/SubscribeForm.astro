@@ -7,14 +7,14 @@ const { class: className = "" } = Astro.props;
 const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
 ---
 
-<div class:list={["w-full max-w-md", className]}>
+<div id="subscribe-section" class:list={["w-full max-w-md", className]}>
   <!-- Form State (visible by default) -->
   <div id="subscribe-form-container">
     <h2 class="text-xl font-semibold text-center mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
       Subscribe to the Newsletter
     </h2>
     
-    <form class="space-y-4" action="/?subscribed=true" method="POST" id="subscribe-form" name="net-drip" data-netlify="true" netlify-honeypot="bot-field">
+    <form class="space-y-4" action="/?subscribed=true#subscribe-section" method="POST" id="subscribe-form" name="net-drip" data-netlify="true" netlify-honeypot="bot-field">
       <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
       </p>

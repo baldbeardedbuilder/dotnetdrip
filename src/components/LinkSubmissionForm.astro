@@ -6,10 +6,10 @@ interface Props {
 const { class: className = "" } = Astro.props;
 ---
 
-<div class:list={["w-full max-w-2xl", className]}>
+<div id="link-section" class:list={["w-full max-w-2xl", className]}>
   <!-- Form State (visible by default) -->
   <div id="link-form-container">
-    <form class="space-y-6 text-left" action="/?linked=true" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field2">
+    <form class="space-y-6 text-left" action="/?linked=true#link-section" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field2">
       <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field2" /></label>
       </p>
