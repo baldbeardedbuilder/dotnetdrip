@@ -1,0 +1,160 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+// Get all drips and sort by date (folder name is the date)
+const allDrips = await getCollection("drips");
+
+// Sort by id (which is the date folder name) in descending order
+const sortedDrips = allDrips.sort((a, b) => {
+  return b.id.localeCompare(a.id);
+});
+---
+
+<Layout title="Newsletter Archive - .NET drip">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <a
+          href="/"
+          class="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors group"
+        >
+          <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          <span>Back to Home</span>
+        </a>
+        <a href="/" class="flex items-center gap-2">
+          <img src="/images/logo.svg" alt=".NETdrip Logo" class="h-8 w-8" />
+          <div class="flex items-baseline">
+            <span class="text-xl font-bold text-primary">.NET</span>
+            <span class="text-xl font-light text-primary-light">drip</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="relative py-16 px-6 min-h-screen">
+    <!-- Background elements -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-purple-400/20 via-indigo-400/10 to-transparent rounded-full blur-3xl animate-pulse" style="animation-duration: 8s;"></div>
+      <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-indigo-400/20 via-purple-400/10 to-transparent rounded-full blur-3xl animate-pulse" style="animation-duration: 10s; animation-delay: 1s;"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto relative z-10">
+      <!-- Page header -->
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 mb-6">
+          <svg 
+            class="w-12 h-12 text-white" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" 
+            />
+          </svg>
+        </div>
+        <h1 class="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+          Newsletter Archive
+        </h1>
+        <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+          Browse through our collection of past newsletters. Each edition is packed with C# and .NET insights.
+        </p>
+      </div>
+
+      <!-- Newsletter list -->
+      <div class="space-y-12">
+        {sortedDrips.map((drip) => {
+          // Parse the date from the folder name (id)
+          const dateStr = drip.id.replace('/index', '');
+          const date = new Date(dateStr);
+          const formattedDate = date.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          });
+          
+          return (
+            <div class="relative">
+              <!-- Date header -->
+              <div class="flex items-center gap-3 mb-6">
+                <a 
+                  href={`/archive/${dateStr}`}
+                  class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500/10 to-indigo-500/10 dark:from-purple-500/20 dark:to-indigo-500/20 border border-purple-200 dark:border-purple-800 hover:border-purple-400 dark:hover:border-purple-600 transition-colors"
+                >
+                  <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="font-medium text-purple-700 dark:text-purple-300">{formattedDate}</span>
+                </a>
+                <div class="flex-1 h-px bg-gradient-to-r from-purple-200 to-transparent dark:from-purple-800" />
+              </div>
+
+              <!-- Subject/title card -->
+              <div class="relative group">
+                <div class="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-transparent dark:from-purple-500/10 dark:via-indigo-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                <a
+                  href={`/archive/${dateStr}`}
+                  class="relative block p-4 bg-white dark:bg-[#111111] border border-border rounded-lg hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300"
+                >
+                  <div class="flex items-start gap-3">
+                    <!-- Drip icon -->
+                    <div class="flex-shrink-0 mt-0.5">
+                      <img src="/images/logo.svg" alt="" class="w-4 h-5" />
+                    </div>
+                    
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-start justify-between gap-2 mb-1">
+                        <h3 class="font-medium text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                          {drip.data.Subject}
+                        </h3>
+                        <svg class="w-4 h-4 text-text-secondary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                      <p class="text-sm text-text-secondary">
+                        Click to view this edition's links and resources
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative py-12 px-6 border-t border-border z-10">
+    <div class="absolute inset-0 dark:hidden" style="background: linear-gradient(to bottom, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.5) 100%);"></div>
+    <div class="absolute inset-0 hidden dark:block" style="background: linear-gradient(to bottom, rgba(17,17,17,0.95) 20%, rgba(17,17,17,0.5) 100%);"></div>
+    <div class="max-w-4xl mx-auto relative z-10">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <a href="/" class="flex items-center gap-2">
+          <img src="/images/logo.svg" alt=".NETdrip Logo" class="h-8 w-8" />
+          <div class="flex items-baseline">
+            <span class="text-xl font-bold text-primary">.NET</span>
+            <span class="text-xl font-light text-primary-light">drip</span>
+          </div>
+        </a>
+        
+        <div class="text-center md:text-right">
+          <p class="text-sm text-text-secondary">
+            Keeping you current with C# and .NET.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</Layout>
