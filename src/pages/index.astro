@@ -3,6 +3,21 @@ import Layout from "../layouts/Layout.astro";
 import Logo from "../components/Logo.astro";
 import SubscribeForm from "../components/SubscribeForm.astro";
 import LinkSubmissionForm from "../components/LinkSubmissionForm.astro";
+import { getCollection } from "astro:content";
+
+// Get published drips (date <= today)
+const allDrips = await getCollection("drips");
+const today = new Date();
+today.setHours(23, 59, 59, 999);
+
+const publishedDrips = allDrips.filter((drip) => {
+  const dateStr = drip.id.replace('/index', '');
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const dripDate = new Date(year, month - 1, day);
+  return dripDate <= today;
+});
+
+const issueCount = publishedDrips.length;
 ---
 
 <Layout title=".NET drip - Your Regular Dose of C# and .NET">
@@ -58,6 +73,7 @@ import LinkSubmissionForm from "../components/LinkSubmissionForm.astro";
     </div>
     
     <!-- Newsletter Archive Section -->
+    {issueCount > 0 && (
     <div class="flex flex-col items-center pt-24 mt-8 max-w-4xl w-full px-4 relative z-10">
       <div class="relative w-full">
         <!-- Background glow -->
@@ -97,7 +113,7 @@ import LinkSubmissionForm from "../components/LinkSubmissionForm.astro";
           <div class="mt-8 flex items-center justify-center gap-2 text-sm text-text-secondary flex-wrap">
             <div class="flex items-center gap-1">
               <div class="w-2 h-2 rounded-full bg-purple-500"></div>
-              <span>50+ Issues</span>
+              <span>{issueCount} {issueCount === 1 ? 'Issue' : 'Issues'}</span>
             </div>
             <span class="text-border">•</span>
             <div class="flex items-center gap-1">
@@ -113,6 +129,7 @@ import LinkSubmissionForm from "../components/LinkSubmissionForm.astro";
         </div>
       </div>
     </div>
+    )}
       
     <!-- Link Submission Form -->
     <div class="flex flex-col items-center pt-24 mt-8 relative z-10">

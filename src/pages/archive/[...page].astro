@@ -6,8 +6,20 @@ import type { GetStaticPaths } from "astro";
 export const getStaticPaths = (async ({ paginate }) => {
   const allDrips = await getCollection("drips");
   
+  // Get today's date at midnight for comparison
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
+  
+  // Filter to only include editions with publishDate <= today
+  const publishedDrips = allDrips.filter((drip) => {
+    const dateStr = drip.id.replace('/index', '');
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const dripDate = new Date(year, month - 1, day);
+    return dripDate <= today;
+  });
+  
   // Sort by id (which is the date folder name) in descending order
-  const sortedDrips = allDrips.sort((a, b) => {
+  const sortedDrips = publishedDrips.sort((a, b) => {
     return b.id.localeCompare(a.id);
   });
 
