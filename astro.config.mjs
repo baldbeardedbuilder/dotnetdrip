@@ -9,5 +9,8 @@ export default defineConfig({
   adapter: netlify(),
   vite: {
     plugins: [tailwindcss()]
+  },
+  legacy: {
+    collections: true
   }
 });
