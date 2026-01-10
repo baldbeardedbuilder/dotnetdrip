@@ -3,6 +3,21 @@ import Layout from "../layouts/Layout.astro";
 import Logo from "../components/Logo.astro";
 import SubscribeForm from "../components/SubscribeForm.astro";
 import LinkSubmissionForm from "../components/LinkSubmissionForm.astro";
+import { getCollection } from "astro:content";
+
+// Get published drips (date <= today)
+const allDrips = await getCollection("drips");
+const today = new Date();
+today.setHours(23, 59, 59, 999);
+
+const publishedDrips = allDrips.filter((drip) => {
+  const dateStr = drip.id.replace('/index', '');
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const dripDate = new Date(year, month - 1, day);
+  return dripDate <= today;
+});
+
+const issueCount = publishedDrips.length;
 ---
 
 <Layout title=".NET drip - Your Regular Dose of C# and .NET">
@@ -27,9 +42,97 @@ import LinkSubmissionForm from "../components/LinkSubmissionForm.astro";
       <div class="flex justify-center pt-4">
         <SubscribeForm />
       </div>
+    </div>
       
-      <!-- Link Submission Form -->
-      <div class="flex flex-col items-center pt-32 mt-12 relative">
+    <!-- Features Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-20 mt-8 max-w-6xl w-full px-4 relative z-10">
+      <div class="relative group h-full">
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative h-full p-8 bg-white dark:bg-[#111111] border border-border rounded-xl text-center hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col items-center justify-center">
+          <div class="text-4xl mb-3">💧</div>
+          <h3 class="text-lg font-semibold mb-2 whitespace-nowrap bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">Weekly Drops</h3>
+          <p class="text-sm text-text-secondary">Fresh content every week</p>
+        </div>
+      </div>
+      <div class="relative group h-full">
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative h-full p-8 bg-white dark:bg-[#111111] border border-border rounded-xl text-center hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col items-center justify-center">
+          <div class="text-4xl mb-3">🚀</div>
+          <h3 class="text-lg font-semibold mb-2 whitespace-nowrap bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">Community Driven</h3>
+          <p class="text-sm text-text-secondary">Curated by developers, for developers</p>
+        </div>
+      </div>
+      <div class="relative group h-full">
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative h-full p-8 bg-white dark:bg-[#111111] border border-border rounded-xl text-center hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col items-center justify-center">
+          <div class="text-4xl mb-3">⚡</div>
+          <h3 class="text-lg font-semibold mb-2 whitespace-nowrap bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">Stay Current</h3>
+          <p class="text-sm text-text-secondary">Latest .NET trends and updates</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Newsletter Archive Section -->
+    {issueCount > 0 && (
+    <div class="flex flex-col items-center pt-24 mt-8 max-w-4xl w-full px-4 relative z-10">
+      <div class="relative w-full">
+        <!-- Background glow -->
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-pink-500/10 dark:from-purple-500/20 dark:via-indigo-500/20 dark:to-pink-500/20 rounded-2xl blur-2xl"></div>
+        
+        <!-- Main card -->
+        <div class="relative bg-white dark:bg-[#111111] border border-border rounded-2xl p-12 shadow-2xl text-center">
+          <div class="mb-6">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 mb-6">
+              <svg 
+                class="w-10 h-10 text-white" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="2" 
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" 
+                />
+              </svg>
+            </div>
+            <h2 class="text-xl font-semibold mb-4 bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+              Newsletter Archive
+            </h2>
+            <p class="text-lg text-text-secondary max-w-2xl mx-auto mb-8">
+              Missed an issue? Browse our archive of past newsletters and catch up on all the C# and .NET content you may have missed.
+            </p>
+          </div>
+
+          <a href="/archive" class="inline-block px-8 py-4 rounded-lg font-medium text-white transition-all hover:opacity-90 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg hover:shadow-xl">
+            Browse Past Editions
+          </a>
+
+          <!-- Decorative elements -->
+          <div class="mt-8 flex items-center justify-center gap-2 text-sm text-text-secondary flex-wrap">
+            <div class="flex items-center gap-1">
+              <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+              <span>{issueCount} {issueCount === 1 ? 'Issue' : 'Issues'}</span>
+            </div>
+            <span class="text-border">•</span>
+            <div class="flex items-center gap-1">
+              <div class="w-2 h-2 rounded-full bg-indigo-500"></div>
+              <span>Updates Mon, Wed, Fri</span>
+            </div>
+            <span class="text-border">•</span>
+            <div class="flex items-center gap-1">
+              <div class="w-2 h-2 rounded-full bg-pink-500"></div>
+              <span>Always Free</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    )}
+      
+    <!-- Link Submission Form -->
+    <div class="flex flex-col items-center pt-24 mt-8 relative z-10">
         <h2 class="text-xl font-semibold text-center mb-2 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
           Submit a Link
         </h2>
@@ -45,7 +148,6 @@ import LinkSubmissionForm from "../components/LinkSubmissionForm.astro";
             <LinkSubmissionForm />
           </div>
         </div>
-      </div>
     </div>
   </main>
   

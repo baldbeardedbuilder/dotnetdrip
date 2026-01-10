@@ -1,127 +1,96 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Your weekly dose of C# and .NET programming insights, tutorials, and community news delivered straight to your inbox."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@200,400;500;600;700;800&display=swap" rel="stylesheet"><meta name="generator" content="Astro v5.16.7"><title>.NET drip - Your Regular Dose of C# and .NET</title><!-- Inline script to prevent flash of wrong theme --><script>
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Your regular dose of C# and .NET programming insights, tutorials, and community news delivered straight to your inbox."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://dotnetdrip.com/"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:url" content="https://dotnetdrip.com/"><meta name="twitter:title" content=".NET drip - Your Regular Dose of C# and .NET"><meta name="twitter:description" content="Your regular dose of C# and .NET programming insights, tutorials, and community news delivered straight to your inbox."><meta name="twitter:image" content="https://dotnetdrip.com/images/ograph.png"><!-- Open Graph / Facebook / LinkedIn --><meta property="og:type" content="website"><meta property="og:url" content="https://dotnetdrip.com/"><meta property="og:title" content=".NET drip - Your Regular Dose of C# and .NET"><meta property="og:description" content="Your regular dose of C# and .NET programming insights, tutorials, and community news delivered straight to your inbox."><meta property="og:image" content="https://dotnetdrip.com/images/ograph.png"><meta property="og:site_name" content=".NET drip"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@200,400;500;600;700;800&display=swap" rel="stylesheet"><meta name="generator" content="Astro v5.16.7"><title>.NET drip - Your Regular Dose of C# and .NET</title><!-- Inline script to prevent flash of wrong theme --><script>
       const theme = localStorage.getItem("theme");
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       if (theme === "dark" || (!theme && prefersDark)) {
         document.documentElement.classList.add("dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.B56LIPV1.css"></head> <body class="min-h-screen bg-background font-sans antialiased transition-colors duration-200"> <!-- Theme Toggle --> <div class="fixed top-6 right-6 z-50"> <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="p-3 rounded-full bg-surface border border-border shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 active:scale-95"> <!-- Sun icon (shown in dark mode) --> <svg id="sun-icon" class="w-5 h-5 hidden text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path> </svg> <!-- Moon icon (shown in light mode) --> <svg id="moon-icon" class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path> </svg> </button> <script type="module">const o=document.getElementById("theme-toggle"),t=document.getElementById("sun-icon"),n=document.getElementById("moon-icon");function s(e){e?(t?.classList.remove("hidden"),n?.classList.add("hidden")):(t?.classList.add("hidden"),n?.classList.remove("hidden"))}const d=document.documentElement.classList.contains("dark");s(d);o?.addEventListener("click",()=>{const e=document.documentElement.classList.toggle("dark");localStorage.setItem("theme",e?"dark":"light"),s(e)});</script> </div> <!-- Animated background gradients --> <div class="fixed inset-0 pointer-events-none overflow-hidden"> <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-indigo-400/20 via-purple-400/10 to-transparent dark:from-indigo-500/15 dark:via-purple-500/8 rounded-full blur-3xl animate-pulse" style="animation-duration: 8s;"></div> <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-blue-400/20 via-cyan-400/10 to-transparent dark:from-blue-500/12 dark:via-cyan-500/6 rounded-full blur-3xl animate-pulse" style="animation-duration: 10s; animation-delay: 1s;"></div> <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-gradient-to-r from-violet-400/10 via-fuchsia-400/10 to-transparent dark:from-violet-500/10 dark:via-fuchsia-500/6 rounded-full blur-3xl animate-pulse" style="animation-duration: 12s; animation-delay: 2s;"></div> </div> <!-- Floating orbs / lens flares --> <div class="fixed inset-0 pointer-events-none overflow-hidden"> <!-- Large orbs --> <div class="absolute top-[10%] left-[15%] w-16 h-16 bg-gradient-to-br from-indigo-500/30 to-purple-600/20 dark:from-indigo-400/40 dark:to-purple-500/25 rounded-full blur-2xl animate-bounce" style="animation-duration: 6s;"></div> <div class="absolute top-[20%] right-[10%] w-12 h-12 bg-gradient-to-br from-purple-500/25 to-pink-500/15 dark:from-purple-400/35 dark:to-pink-400/20 rounded-full blur-2xl animate-bounce" style="animation-duration: 7s; animation-delay: 0.5s;"></div> <div class="absolute bottom-[25%] left-[8%] w-14 h-14 bg-gradient-to-br from-blue-500/25 to-cyan-500/15 dark:from-blue-400/35 dark:to-cyan-400/20 rounded-full blur-2xl animate-bounce" style="animation-duration: 8s; animation-delay: 1s;"></div> <div class="absolute bottom-[15%] right-[20%] w-10 h-10 bg-gradient-to-br from-violet-500/30 to-indigo-500/20 dark:from-violet-400/40 dark:to-indigo-400/25 rounded-full blur-2xl animate-bounce" style="animation-duration: 5s; animation-delay: 1.5s;"></div> <!-- Medium orbs --> <div class="absolute top-[40%] left-[5%] w-8 h-8 bg-gradient-to-br from-indigo-400/35 to-indigo-600/20 dark:from-indigo-400/45 dark:to-indigo-500/30 rounded-full blur-xl animate-bounce" style="animation-duration: 4s; animation-delay: 0.3s;"></div> <div class="absolute top-[60%] right-[8%] w-7 h-7 bg-gradient-to-br from-purple-400/30 to-purple-600/15 dark:from-purple-400/40 dark:to-purple-500/25 rounded-full blur-xl animate-bounce" style="animation-duration: 5s; animation-delay: 2s;"></div> <div class="absolute top-[15%] left-[40%] w-6 h-6 bg-gradient-to-br from-cyan-400/25 to-blue-500/15 dark:from-cyan-400/35 dark:to-blue-400/20 rounded-full blur-xl animate-bounce" style="animation-duration: 6s; animation-delay: 0.8s;"></div> <div class="absolute bottom-[35%] right-[35%] w-8 h-8 bg-gradient-to-br from-fuchsia-400/25 to-pink-500/15 dark:from-fuchsia-400/35 dark:to-pink-400/20 rounded-full blur-xl animate-bounce" style="animation-duration: 7s; animation-delay: 2.5s;"></div> <!-- Small orbs / sparkles --> <div class="absolute top-[25%] left-[25%] w-6 h-6 bg-gradient-to-br from-indigo-400/50 to-indigo-600/30 dark:from-indigo-300/55 dark:to-indigo-500/35 rounded-full blur-md animate-bounce" style="animation-duration: 3s;"></div> <div class="absolute top-[45%] right-[25%] w-4 h-4 bg-gradient-to-br from-purple-400/50 to-purple-600/30 dark:from-purple-300/55 dark:to-purple-500/35 rounded-full blur-md animate-bounce" style="animation-duration: 4s; animation-delay: 1s;"></div> <div class="absolute bottom-[40%] left-[30%] w-5 h-5 bg-gradient-to-br from-blue-400/50 to-blue-600/30 dark:from-blue-300/55 dark:to-blue-500/35 rounded-full blur-md animate-bounce" style="animation-duration: 3.5s; animation-delay: 0.5s;"></div> <div class="absolute top-[70%] left-[20%] w-3 h-3 bg-gradient-to-br from-cyan-400/50 to-cyan-600/30 dark:from-cyan-300/55 dark:to-cyan-500/35 rounded-full blur-sm animate-bounce" style="animation-duration: 2.5s; animation-delay: 1.5s;"></div> <div class="absolute top-[30%] right-[30%] w-4 h-4 bg-gradient-to-br from-violet-400/50 to-violet-600/30 dark:from-violet-300/55 dark:to-violet-500/35 rounded-full blur-sm animate-bounce" style="animation-duration: 3s; animation-delay: 2s;"></div> <div class="absolute bottom-[20%] left-[45%] w-3 h-3 bg-gradient-to-br from-pink-400/50 to-pink-600/30 dark:from-pink-300/55 dark:to-pink-500/35 rounded-full blur-sm animate-bounce" style="animation-duration: 4s; animation-delay: 0.7s;"></div> </div> <!-- Grid backgrounds --> <div class="fixed inset-0 pointer-events-none overflow-hidden"> <!-- Large grid - light mode --> <div class="absolute inset-0 opacity-[0.08] dark:opacity-0" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 40px 40px;"></div> <!-- Large grid - dark mode --> <div class="absolute inset-0 opacity-0 dark:opacity-[0.25]" style="background-image: linear-gradient(to right, rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 40px 40px;"></div> <!-- Small grid overlay - light mode --> <div class="absolute inset-0 opacity-[0.06] dark:opacity-0" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 10px 10px;"></div> <!-- Small grid overlay - dark mode --> <div class="absolute inset-0 opacity-0 dark:opacity-[0.15]" style="background-image: linear-gradient(to right, rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 10px 10px;"></div> <!-- Radial grid fade --> <div class="absolute inset-0" style="background: radial-gradient(circle at center, transparent 0%, var(--color-background) 70%);"></div> </div> <!-- Accent grid lines --> <div class="fixed inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.15]"> <!-- Horizontal accent lines --> <div class="absolute top-1/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div> <div class="absolute top-3/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div> <!-- Vertical accent lines --> <div class="absolute left-1/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-indigo-500 to-transparent"></div> <div class="absolute left-3/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-purple-500 to-transparent"></div> </div>  <main class="min-h-screen flex flex-col items-center justify-center px-4 py-16 relative z-10"> <!-- Gradient overlay --> <div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-transparent dark:from-[#111111]/20 dark:via-[#111111]/10 dark:to-transparent pointer-events-none"></div> <div class="max-w-2xl mx-auto text-center space-y-8 relative z-10"> <!-- Glowing effect behind logo --> <div class="relative flex justify-center items-center mt-8"> <div class="absolute w-72 h-72 blur-3xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-20 dark:opacity-30 rounded-full"></div> <div class="flex items-center gap-3"> <img src="/images/logo.svg" alt=".NETdrip Logo" class="h-24 w-24"> <div class="flex items-baseline"> <span class="text-6xl font-bold text-primary">.NET</span> <span class="text-6xl font-light text-primary-light">drip</span> </div> </div> </div> <!-- Tagline --> <p class="text-lg text-text-secondary leading-relaxed max-w-xl mx-auto">
+    </script><link rel="stylesheet" href="/_astro/_page_.BAlAgxi-.css"></head> <body class="min-h-screen bg-background font-sans antialiased transition-colors duration-200"> <!-- Theme Toggle --> <div class="fixed bottom-6 right-6 z-50"> <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="p-3 rounded-full bg-surface border border-border shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 active:scale-95"> <!-- Sun icon (shown in dark mode) --> <svg id="sun-icon" class="w-5 h-5 hidden text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path> </svg> <!-- Moon icon (shown in light mode) --> <svg id="moon-icon" class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path> </svg> </button> <script type="module">const o=document.getElementById("theme-toggle"),t=document.getElementById("sun-icon"),n=document.getElementById("moon-icon");function s(e){e?(t?.classList.remove("hidden"),n?.classList.add("hidden")):(t?.classList.add("hidden"),n?.classList.remove("hidden"))}const d=document.documentElement.classList.contains("dark");s(d);o?.addEventListener("click",()=>{const e=document.documentElement.classList.toggle("dark");localStorage.setItem("theme",e?"dark":"light"),s(e)});</script> </div> <!-- Animated background gradients --> <div class="fixed inset-0 pointer-events-none overflow-hidden"> <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-indigo-400/20 via-purple-400/10 to-transparent dark:from-indigo-500/15 dark:via-purple-500/8 rounded-full blur-3xl animate-pulse" style="animation-duration: 8s;"></div> <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-blue-400/20 via-cyan-400/10 to-transparent dark:from-blue-500/12 dark:via-cyan-500/6 rounded-full blur-3xl animate-pulse" style="animation-duration: 10s; animation-delay: 1s;"></div> <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-gradient-to-r from-violet-400/10 via-fuchsia-400/10 to-transparent dark:from-violet-500/10 dark:via-fuchsia-500/6 rounded-full blur-3xl animate-pulse" style="animation-duration: 12s; animation-delay: 2s;"></div> </div> <!-- Floating orbs / lens flares --> <div class="fixed inset-0 pointer-events-none overflow-hidden"> <!-- Large orbs --> <div class="absolute top-[10%] left-[15%] w-16 h-16 bg-gradient-to-br from-indigo-500/30 to-purple-600/20 dark:from-indigo-400/40 dark:to-purple-500/25 rounded-full blur-2xl animate-bounce" style="animation-duration: 6s;"></div> <div class="absolute top-[20%] right-[10%] w-12 h-12 bg-gradient-to-br from-purple-500/25 to-pink-500/15 dark:from-purple-400/35 dark:to-pink-400/20 rounded-full blur-2xl animate-bounce" style="animation-duration: 7s; animation-delay: 0.5s;"></div> <div class="absolute bottom-[25%] left-[8%] w-14 h-14 bg-gradient-to-br from-blue-500/25 to-cyan-500/15 dark:from-blue-400/35 dark:to-cyan-400/20 rounded-full blur-2xl animate-bounce" style="animation-duration: 8s; animation-delay: 1s;"></div> <div class="absolute bottom-[15%] right-[20%] w-10 h-10 bg-gradient-to-br from-violet-500/30 to-indigo-500/20 dark:from-violet-400/40 dark:to-indigo-400/25 rounded-full blur-2xl animate-bounce" style="animation-duration: 5s; animation-delay: 1.5s;"></div> <!-- Medium orbs --> <div class="absolute top-[40%] left-[5%] w-8 h-8 bg-gradient-to-br from-indigo-400/35 to-indigo-600/20 dark:from-indigo-400/45 dark:to-indigo-500/30 rounded-full blur-xl animate-bounce" style="animation-duration: 4s; animation-delay: 0.3s;"></div> <div class="absolute top-[60%] right-[8%] w-7 h-7 bg-gradient-to-br from-purple-400/30 to-purple-600/15 dark:from-purple-400/40 dark:to-purple-500/25 rounded-full blur-xl animate-bounce" style="animation-duration: 5s; animation-delay: 2s;"></div> <div class="absolute top-[15%] left-[40%] w-6 h-6 bg-gradient-to-br from-cyan-400/25 to-blue-500/15 dark:from-cyan-400/35 dark:to-blue-400/20 rounded-full blur-xl animate-bounce" style="animation-duration: 6s; animation-delay: 0.8s;"></div> <div class="absolute bottom-[35%] right-[35%] w-8 h-8 bg-gradient-to-br from-fuchsia-400/25 to-pink-500/15 dark:from-fuchsia-400/35 dark:to-pink-400/20 rounded-full blur-xl animate-bounce" style="animation-duration: 7s; animation-delay: 2.5s;"></div> <!-- Small orbs / sparkles --> <div class="absolute top-[25%] left-[25%] w-6 h-6 bg-gradient-to-br from-indigo-400/50 to-indigo-600/30 dark:from-indigo-300/55 dark:to-indigo-500/35 rounded-full blur-md animate-bounce" style="animation-duration: 3s;"></div> <div class="absolute top-[45%] right-[25%] w-4 h-4 bg-gradient-to-br from-purple-400/50 to-purple-600/30 dark:from-purple-300/55 dark:to-purple-500/35 rounded-full blur-md animate-bounce" style="animation-duration: 4s; animation-delay: 1s;"></div> <div class="absolute bottom-[40%] left-[30%] w-5 h-5 bg-gradient-to-br from-blue-400/50 to-blue-600/30 dark:from-blue-300/55 dark:to-blue-500/35 rounded-full blur-md animate-bounce" style="animation-duration: 3.5s; animation-delay: 0.5s;"></div> <div class="absolute top-[70%] left-[20%] w-3 h-3 bg-gradient-to-br from-cyan-400/50 to-cyan-600/30 dark:from-cyan-300/55 dark:to-cyan-500/35 rounded-full blur-sm animate-bounce" style="animation-duration: 2.5s; animation-delay: 1.5s;"></div> <div class="absolute top-[30%] right-[30%] w-4 h-4 bg-gradient-to-br from-violet-400/50 to-violet-600/30 dark:from-violet-300/55 dark:to-violet-500/35 rounded-full blur-sm animate-bounce" style="animation-duration: 3s; animation-delay: 2s;"></div> <div class="absolute bottom-[20%] left-[45%] w-3 h-3 bg-gradient-to-br from-pink-400/50 to-pink-600/30 dark:from-pink-300/55 dark:to-pink-500/35 rounded-full blur-sm animate-bounce" style="animation-duration: 4s; animation-delay: 0.7s;"></div> </div> <!-- Grid backgrounds --> <div class="fixed inset-0 pointer-events-none overflow-hidden"> <!-- Large grid - light mode --> <div class="absolute inset-0 opacity-[0.15] dark:opacity-0" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 40px 40px;"></div> <!-- Large grid - dark mode --> <div class="absolute inset-0 opacity-0 dark:opacity-[0.25]" style="background-image: linear-gradient(to right, rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 40px 40px;"></div> <!-- Small grid overlay - light mode --> <div class="absolute inset-0 opacity-[0.12] dark:opacity-0" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 10px 10px;"></div> <!-- Small grid overlay - dark mode --> <div class="absolute inset-0 opacity-0 dark:opacity-[0.15]" style="background-image: linear-gradient(to right, rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 10px 10px;"></div> <!-- Radial grid fade --> <div class="absolute inset-0" style="background: radial-gradient(circle at center, transparent 0%, var(--color-background) 70%);"></div> </div> <!-- Accent grid lines --> <div class="fixed inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.15]"> <!-- Horizontal accent lines --> <div class="absolute top-1/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div> <div class="absolute top-3/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div> <!-- Vertical accent lines --> <div class="absolute left-1/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-indigo-500 to-transparent"></div> <div class="absolute left-3/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-purple-500 to-transparent"></div> </div>  <main class="min-h-screen flex flex-col items-center justify-center px-4 py-16 relative z-10"> <!-- Gradient overlay --> <div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-transparent dark:from-[#111111]/20 dark:via-[#111111]/10 dark:to-transparent pointer-events-none"></div> <div class="max-w-2xl mx-auto text-center space-y-8 relative z-10"> <!-- Glowing effect behind logo --> <div class="relative flex justify-center items-center mt-24"> <div class="absolute w-72 h-72 blur-3xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-30 dark:opacity-30 rounded-full"></div> <div class="flex items-center gap-3"> <img src="/images/logo.svg" alt=".NETdrip Logo" class="h-24 w-24"> <div class="flex items-baseline"> <span class="text-6xl font-bold text-primary">.NET</span> <span class="text-6xl font-light text-primary-light">drip</span> </div> </div> </div> <!-- Tagline --> <p class="text-lg text-text-secondary leading-relaxed max-w-xl mx-auto">
 Your regular dose of <span class="text-indigo-600 dark:text-indigo-400 font-medium">C#</span> and <span class="text-purple-600 dark:text-purple-400 font-medium">.NET</span> programming insights, tutorials, and 
         community news delivered straight to your inbox.
-</p> <!-- Subscribe Form --> <div class="flex justify-center pt-4"> <div class="w-full max-w-md"> <!-- Form State (visible by default) --> <div id="subscribe-form-container"> <h2 class="text-xl font-semibold text-center mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
+</p> <!-- Subscribe Form --> <div class="flex justify-center pt-4"> <div id="subscribe-section" class="w-full max-w-md"> <!-- Form State (visible by default) --> <div id="subscribe-form-container"> <h2 class="text-xl font-semibold text-center mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
 Subscribe to the Newsletter
-</h2> <form class="space-y-4" action="/submit" method="POST" id="subscribe-form" name="net-drip" data-netlify="true" netlify-honeypot="bot-field"> <p class="hidden"> <label>Don't fill this out if you're human: <input name="bot-field"></label> </p> <div> <label for="email" class="block text-base font-medium text-text-primary text-left mb-2">
+</h2> <form class="space-y-4" action="/?subscribed=true#subscribe-section" method="POST" id="subscribe-form" name="net-drip" data-netlify="true" netlify-honeypot="bot-field"> <p class="hidden"> <label>Don't fill this out if you're human: <input name="bot-field"></label> </p> <div> <label for="email" class="block text-base font-medium text-text-primary text-left mb-2">
 Email Address
-</label> <input type="email" id="email" name="email" placeholder="you@example.com" required class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-base text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"> <p id="email-error" class="mt-2 text-sm text-red-500 hidden"></p> </div> <button type="submit" id="subscribe-button" class="w-full px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+</label> <input type="email" id="email" name="email" placeholder="you@example.com" required class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-base text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"> <p id="email-error" class="mt-2 text-sm text-red-500 hidden"></p> </div> <button type="submit" id="subscribe-button" class="w-full px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
 Subscribe to .NET drip
 </button> </form> <p class="text-xs text-text-secondary text-center mt-4">
 No spam, unsubscribe at any time. We respect your privacy.
 </p> </div> <!-- Success State (hidden by default) --> <div id="subscribe-success" class="hidden"> <h2 class="text-xl font-semibold text-center mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
 Thank You for Subscribing!
 </h2> <div class="relative"> <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-indigo-500/20 dark:from-indigo-500/30 dark:via-purple-500/30 dark:to-indigo-500/30 rounded-2xl blur-xl"></div> <div class="relative bg-white/80 dark:bg-surface/50 backdrop-blur-sm border border-border rounded-2xl p-8 shadow-2xl"> <div class="flex flex-col items-center text-center space-y-4"> <div class="relative"> <div class="absolute inset-0 bg-green-500/20 dark:bg-green-400/30 blur-2xl rounded-full"></div> <svg class="relative w-16 h-16 text-green-600 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="12" cy="12" r="10"></circle> <path d="m9 12 2 2 4-4"></path> </svg> </div> <div class="space-y-2"> <h3 class="text-2xl font-semibold text-text-primary">You're all set!</h3> <p class="text-text-secondary">
-We've added you to the .NET drip newsletter. Check your inbox for a confirmation email.
-</p> </div> <div class="flex items-center gap-2 text-sm text-text-secondary pt-4"> <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <rect width="20" height="16" x="2" y="4" rx="2"></rect> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path> </svg> <span>First newsletter drops every Monday</span> </div> </div> </div> </div> </div> </div> <script>
-  const form = document.getElementById("subscribe-form");
-  const formContainer = document.getElementById("subscribe-form-container");
-  const successContainer = document.getElementById("subscribe-success");
-  const emailInput = document.getElementById("email");
-  const emailError = document.getElementById("email-error");
-  const submitButton = document.getElementById("subscribe-button");
+We've added you to the .NET drip newsletter.
+</p> </div> <div class="flex items-center gap-2 text-sm text-text-secondary pt-4"> <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <rect width="20" height="16" x="2" y="4" rx="2"></rect> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path> </svg> <span>Newsletters drop every Monday, Wednesday, and Friday.</span> </div> </div> </div> </div> </div> </div> <script>
+  // Check for success query param on page load
+  (function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('subscribed') === 'true') {
+      const formContainer = document.getElementById('subscribe-form-container');
+      const successContainer = document.getElementById('subscribe-success');
+      if (formContainer && successContainer) {
+        formContainer.classList.add('hidden');
+        successContainer.classList.remove('hidden');
+      }
+    }
+  })();
+
+  const subscribeForm = document.getElementById("subscribe-form");
+  const subscribeEmailInput = document.getElementById("email");
+  const subscribeEmailError = document.getElementById("email-error");
   
-  function showError(message) {
-    if (emailError) {
-      emailError.textContent = message;
-      emailError.classList.remove("hidden");
+  function showSubscribeError(message) {
+    if (subscribeEmailError) {
+      subscribeEmailError.textContent = message;
+      subscribeEmailError.classList.remove("hidden");
     }
   }
   
-  function clearError() {
-    if (emailError) {
-      emailError.textContent = "";
-      emailError.classList.add("hidden");
+  function clearSubscribeError() {
+    if (subscribeEmailError) {
+      subscribeEmailError.textContent = "";
+      subscribeEmailError.classList.add("hidden");
     }
   }
   
-  function validateEmail(email) {
+  function validateSubscribeEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
   
-  function showSuccess() {
-    formContainer?.classList.add("hidden");
-    successContainer?.classList.remove("hidden");
-  }
-  
-  emailInput?.addEventListener("input", () => {
-    clearError();
+  subscribeEmailInput?.addEventListener("input", () => {
+    clearSubscribeError();
   });
   
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    clearError();
+  subscribeForm?.addEventListener("submit", (e) => {
+    clearSubscribeError();
     
-    const email = emailInput?.value?.trim();
-    const formId = form.dataset.formid;
+    const email = subscribeEmailInput?.value?.trim();
     
     // Validate email
     if (!email) {
-      showError("Email is required");
+      e.preventDefault();
+      showSubscribeError("Email is required");
       return;
     }
     
-    if (!validateEmail(email)) {
-      showError("Please enter a valid email address");
+    if (!validateSubscribeEmail(email)) {
+      e.preventDefault();
+      showSubscribeError("Please enter a valid email address");
       return;
     }
     
-    // Disable button during submission
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.textContent = "Subscribing...";
-    }
-    
-    try {
-      // Submit to /submit endpoint
-      const response = await fetch("/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-        }),
-      });
-      
-      if (response.ok) {
-        showSuccess();
-      } else {
-        const data = await response.json();
-        showError(data.message || "Something went wrong. Please try again.");
-        if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.textContent = "Subscribe to .NET drip";
-        }
-      }
-    } catch (error) {
-      showError("Something went wrong. Please try again.");
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = "Subscribe to .NET drip";
-      }
-    }
+    // Validation passed - allow form to submit naturally
   });
-</script> </div> <!-- Link Submission Form --> <div class="flex justify-center pt-32 mt-12 relative"> <div class="relative"> <!-- Decorative gradient blobs off to the sides --> <div class="absolute -left-64 top-1/4 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-cyan-400/15 to-blue-500/10 dark:from-cyan-500/20 dark:to-blue-600/15 rounded-full blur-2xl pointer-events-none"></div> <div class="absolute -right-64 top-3/4 -translate-y-1/2 w-48 h-48 bg-gradient-to-tl from-fuchsia-400/15 to-purple-500/10 dark:from-fuchsia-500/20 dark:to-purple-600/15 rounded-full blur-2xl pointer-events-none"></div> <!-- Glow effect behind form --> <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 dark:from-cyan-500/30 dark:via-blue-500/30 dark:to-purple-500/30 rounded-2xl blur-2xl"></div> <!-- Card wrapper --> <div class="relative bg-white/80 dark:bg-surface/50 backdrop-blur-sm border border-border rounded-2xl p-8 shadow-2xl"> <div class="w-full max-w-2xl"> <!-- Form State (visible by default) --> <div id="link-form-container"> <h2 class="text-xl font-semibold text-center mb-2 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
+</script> </div> </div> <!-- Features Section --> <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-20 mt-8 max-w-6xl w-full px-4 relative z-10"> <div class="relative group h-full"> <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> <div class="relative h-full p-8 bg-white dark:bg-[#111111] border border-border rounded-xl text-center hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col items-center justify-center"> <div class="text-4xl mb-3">💧</div> <h3 class="text-lg font-semibold mb-2 whitespace-nowrap bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">Weekly Drops</h3> <p class="text-sm text-text-secondary">Fresh content every week</p> </div> </div> <div class="relative group h-full"> <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> <div class="relative h-full p-8 bg-white dark:bg-[#111111] border border-border rounded-xl text-center hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col items-center justify-center"> <div class="text-4xl mb-3">🚀</div> <h3 class="text-lg font-semibold mb-2 whitespace-nowrap bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">Community Driven</h3> <p class="text-sm text-text-secondary">Curated by developers, for developers</p> </div> </div> <div class="relative group h-full"> <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> <div class="relative h-full p-8 bg-white dark:bg-[#111111] border border-border rounded-xl text-center hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col items-center justify-center"> <div class="text-4xl mb-3">⚡</div> <h3 class="text-lg font-semibold mb-2 whitespace-nowrap bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">Stay Current</h3> <p class="text-sm text-text-secondary">Latest .NET trends and updates</p> </div> </div> </div> <!-- Newsletter Archive Section -->  <!-- Link Submission Form --> <div class="flex flex-col items-center pt-24 mt-8 relative z-10"> <h2 class="text-xl font-semibold text-center mb-2 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
 Submit a Link
-</h2> <p class="text-lg text-text-secondary text-center mb-6">
+</h2> <p class="text-lg text-text-secondary text-center mb-12 max-w-2xl">
 Have a great C# or .NET resource to share? Submit it for the next newsletter.
-</p> <form class="space-y-6 text-left" action="/submit" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field"> <p class="hidden"> <label>Don't fill this out if you're human: <input name="bot-field"></label> </p> <div class="grid grid-cols-1 md:grid-cols-2 gap-6"> <div> <label for="submitter-name" class="block text-base font-medium text-text-primary mb-2">
+</p> <div class="relative"> <!-- Glow effect behind form --> <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 dark:from-cyan-500/30 dark:via-blue-500/30 dark:to-purple-500/30 rounded-2xl blur-2xl"></div> <!-- Card wrapper --> <div class="relative bg-white/80 dark:bg-surface/50 backdrop-blur-sm border border-border rounded-2xl p-8 shadow-2xl"> <div id="link-section" class="w-full max-w-2xl"> <!-- Form State (visible by default) --> <div id="link-form-container"> <form class="space-y-6 text-left" action="/?linked=true#link-section" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field2"> <p class="hidden"> <label>Don't fill this out if you're human: <input name="bot-field2"></label> </p> <div class="grid grid-cols-1 md:grid-cols-2 gap-6"> <div> <label for="submitter-name" class="block text-base font-medium text-text-primary mb-2">
 Your Name
-</label> <input type="text" id="submitter-name" name="name" placeholder="John Doe" required class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"> <p class="mt-2 text-sm text-red-500 hidden" data-error="name"></p> </div> <div> <label for="submitter-email" class="block text-base font-medium text-text-primary mb-2">
+</label> <input type="text" id="submitter-name" name="name" placeholder="John Doe" class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"> <p class="mt-2 text-sm text-red-500 hidden" data-error="name"></p> </div> <div> <label for="submitter-email" class="block text-base font-medium text-text-primary mb-2">
 Your Email
-</label> <input type="email" id="submitter-email" name="email" placeholder="you@example.com" required class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"> <p class="mt-2 text-sm text-red-500 hidden" data-error="email"></p> </div> </div> <div> <label for="link-url" class="block text-base font-medium text-text-primary mb-2">
+</label> <input type="email" id="submitter-email" name="email" placeholder="you@example.com" class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"> <p class="mt-2 text-sm text-red-500 hidden" data-error="email"></p> </div> </div> <div> <label for="link-url" class="block text-base font-medium text-text-primary mb-2">
 Link URL
-</label> <input type="url" id="link-url" name="link" placeholder="https://example.com/awesome-csharp-article" required class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"> <p class="mt-2 text-sm text-red-500 hidden" data-error="link"></p> </div> <div> <label for="link-description" class="block text-base font-medium text-text-primary mb-2">
-Description
-</label> <textarea id="link-description" name="description" placeholder="Tell us why this link is interesting and relevant to C# and .NET developers..." rows="4" required class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 resize-none"></textarea> <p class="mt-2 text-sm text-red-500 hidden" data-error="description"></p> </div> <button type="submit" id="link-submit-button" class="w-full px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-medium rounded-lg hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
+</label> <input type="url" id="link-url" name="link" placeholder="https://example.com/awesome-csharp-article" required class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"> <p class="mt-2 text-sm text-red-500 hidden" data-error="link"></p> </div> <button type="submit" id="link-submit-button" class="w-full px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-medium rounded-lg hover:from-cyan-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
 Submit Link
 </button> </form> </div> <!-- Success State (hidden by default) --> <div id="link-success" class="hidden"> <h2 class="text-xl font-semibold text-center mb-4 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
 Thank You for Your Submission!
@@ -129,13 +98,23 @@ Thank You for Your Submission!
 We appreciate you sharing valuable content with the .NET community.
 </p> <div class="flex flex-col items-center text-center space-y-6"> <div class="relative"> <div class="absolute inset-0 bg-blue-500/20 dark:bg-blue-400/30 blur-2xl rounded-full"></div> <svg class="relative w-16 h-16 text-blue-600 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <circle cx="12" cy="12" r="10"></circle> <path d="m9 12 2 2 4-4"></path> </svg> </div> <div class="space-y-3"> <h3 class="text-2xl font-semibold text-text-primary">Link Received!</h3> <p class="text-text-secondary max-w-lg">
 Our editorial team will review your submission for inclusion in an upcoming newsletter. Quality content like yours helps make .NET drip valuable for everyone.
-</p> </div> <div class="flex flex-col sm:flex-row items-center gap-6 pt-4 text-sm"> <div class="flex items-center gap-2 text-text-secondary"> <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path> <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path> </svg> <span>We review submissions within 48 hours</span> </div> <div class="flex items-center gap-2 text-text-secondary"> <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <rect width="20" height="16" x="2" y="4" rx="2"></rect> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path> </svg> <span>You'll be notified if it's featured</span> </div> </div> </div> </div> </div> <script>
-  const form = document.getElementById("link-submission-form");
-  const formContainer = document.getElementById("link-form-container");
-  const successContainer = document.getElementById("link-success");
-  const submitButton = document.getElementById("link-submit-button");
+</p> </div> <div class="flex flex-col sm:flex-row items-center gap-6 pt-4 text-sm"> <div class="flex items-center gap-2 text-text-secondary"> <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path> <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path> </svg> <span>We review submissions within 48 hours</span> </div> <a href="#" id="reset-link-form" class="flex items-center gap-2 text-primary hover:text-primary-dark transition-colors"> <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path> <path d="M21 3v5h-5"></path> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path> <path d="M8 16H3v5"></path> </svg> <span>Click here to submit another link.</span> </a> </div> </div> </div> </div> <script>
+  // Check for success query param on page load
+  (function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('linked') === 'true') {
+      const formContainer = document.getElementById('link-form-container');
+      const successContainer = document.getElementById('link-success');
+      if (formContainer && successContainer) {
+        formContainer.classList.add('hidden');
+        successContainer.classList.remove('hidden');
+      }
+    }
+  })();
+
+  const linkForm = document.getElementById("link-submission-form");
   
-  function showError(field, message) {
+  function showLinkError(field, message) {
     const errorEl = document.querySelector(`[data-error="${field}"]`);
     if (errorEl) {
       errorEl.textContent = message;
@@ -143,100 +122,67 @@ Our editorial team will review your submission for inclusion in an upcoming news
     }
   }
   
-  function clearErrors() {
+  function clearLinkErrors() {
     document.querySelectorAll("[data-error]").forEach(el => {
       el.textContent = "";
       el.classList.add("hidden");
     });
   }
   
-  function showSuccess() {
-    formContainer?.classList.add("hidden");
-    successContainer?.classList.remove("hidden");
-  }
-  
-  function validateForm(formData) {
-    clearErrors();
+  function validateLinkForm(formData) {
+    clearLinkErrors();
     let isValid = true;
     
-    const name = formData.get("name");
     const email = formData.get("email");
     const link = formData.get("link");
-    const description = formData.get("description");
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
     
-    if (!name?.trim()) {
-      showError("name", "Name is required");
-      isValid = false;
-    }
-    
-    if (!email) {
-      showError("email", "Email is required");
-      isValid = false;
-    } else if (!emailRegex.test(email)) {
-      showError("email", "Please enter a valid email address");
+    // Only validate email format if one is provided
+    if (email && !emailRegex.test(email)) {
+      showLinkError("email", "Please enter a valid email address");
       isValid = false;
     }
     
     if (!link) {
-      showError("link", "Link is required");
+      showLinkError("link", "Link is required");
       isValid = false;
     } else if (!urlRegex.test(link)) {
-      showError("link", "Please enter a valid URL");
-      isValid = false;
-    }
-    
-    if (!description?.trim()) {
-      showError("description", "Description is required");
+      showLinkError("link", "Please enter a valid URL");
       isValid = false;
     }
     
     return isValid;
   }
   
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
+  linkForm?.addEventListener("submit", (e) => {
+    const formData = new FormData(linkForm);
     
-    if (!validateForm(formData)) {
+    if (!validateLinkForm(formData)) {
+      e.preventDefault();
       return;
     }
     
-    // Disable button during submission
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.textContent = "Submitting...";
-    }
-    
-    try {
-      // Submit to Netlify Forms
-      const response = await fetch("/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams(formData).toString(),
-      });
-      
-      if (response.ok) {
-        showSuccess();
-      } else {
-        showError("description", "Something went wrong. Please try again.");
-        if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.textContent = "Submit Link";
-        }
-      }
-    } catch (error) {
-      showError("description", "Something went wrong. Please try again.");
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Link";
-      }
-    }
+    // Validation passed - allow form to submit naturally
   });
-</script> </div> </div> </div> </div> </main>  <footer class="relative py-12 px-6 border-t border-border z-10"> <!-- Light mode gradient (white) --> <div class="absolute inset-0 dark:hidden" style="background: linear-gradient(to bottom, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.5) 100%);"></div> <!-- Dark mode gradient (dark gray) --> <div class="absolute inset-0 hidden dark:block" style="background: linear-gradient(to bottom, rgba(17,17,17,0.95) 20%, rgba(17,17,17,0.5) 100%);"></div> <div class="max-w-4xl mx-auto relative z-10"> <div class="flex flex-col md:flex-row items-center justify-between gap-6"> <div class="flex items-center gap-2"> <img src="/images/logo.svg" alt=".NETdrip Logo" class="h-8 w-8"> <div class="flex items-baseline"> <span class="text-xl font-bold text-primary">.NET</span> <span class="text-xl font-light text-primary-light">drip</span> </div> </div> <div class="text-center md:text-right"> <p class="text-sm text-text-secondary">
+
+  // Handle reset link click
+  const resetLinkBtn = document.getElementById("reset-link-form");
+  resetLinkBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const formContainer = document.getElementById('link-form-container');
+    const successContainer = document.getElementById('link-success');
+    if (formContainer && successContainer) {
+      successContainer.classList.add('hidden');
+      formContainer.classList.remove('hidden');
+      linkForm?.reset();
+    }
+    // Remove query param from URL
+    const url = new URL(window.location.href);
+    url.searchParams.delete('linked');
+    window.history.replaceState({}, '', url);
+  });
+</script> </div> </div> </div> </main>  <footer class="relative py-12 px-6 border-t border-border z-10"> <!-- Light mode gradient (white) --> <div class="absolute inset-0 dark:hidden" style="background: linear-gradient(to bottom, rgba(255,255,255,0.95) 20%, rgba(255,255,255,0.5) 100%);"></div> <!-- Dark mode gradient (dark gray) --> <div class="absolute inset-0 hidden dark:block" style="background: linear-gradient(to bottom, rgba(17,17,17,0.95) 20%, rgba(17,17,17,0.5) 100%);"></div> <div class="max-w-4xl mx-auto relative z-10"> <div class="flex flex-col md:flex-row items-center justify-between gap-6"> <div class="flex items-center gap-2"> <img src="/images/logo.svg" alt=".NETdrip Logo" class="h-8 w-8"> <div class="flex items-baseline"> <span class="text-xl font-bold text-primary">.NET</span> <span class="text-xl font-light text-primary-light">drip</span> </div> </div> <div class="text-center md:text-right"> <p class="text-sm text-text-secondary">
 Keeping you current with C# and .NET.
 </p> </div> </div> </div> </footer>  </body></html>
