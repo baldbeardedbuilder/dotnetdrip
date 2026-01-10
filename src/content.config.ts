@@ -2,6 +2,7 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
+// Define drips collection with correct Content Layer API (loader without type)
 const dripsCollection = defineCollection({
   loader: glob({ pattern: "**/index.md", base: "./src/content/drips" }),
   schema: z.object({
