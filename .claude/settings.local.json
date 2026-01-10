@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(git -C \"D:\\\\sources\\\\michaeljolley\\\\dotnetdrip\" log --oneline -5)",
-      "Bash(git -C \"D:\\\\sources\\\\michaeljolley\\\\dotnetdrip\" status)"
-    ]
-  }
-}
