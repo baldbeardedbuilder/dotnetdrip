@@ -1,12 +1,19 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 // Define drips collection with correct Content Layer API (loader without type)
 const dripsCollection = defineCollection({
-  loader: glob({ pattern: "**/index.md", base: "./src/content/dotnet-drips" }),
+  loader: glob({ pattern: "**/index.md", base: "./src/content/drips" }),
   schema: z.object({
-    Subject: z.string(),
-  }),
+    publishDate: z.string(),
+    links: z.array(
+            z.object({
+              title: z.string(),
+              url: z.string().url(),
+              summary: z.string() 
+          }))
+  })
 });
 
 export const collections = {
