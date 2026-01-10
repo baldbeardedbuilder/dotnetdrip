@@ -133,13 +133,17 @@ function formatDate(dateStr: string): string {
                   >
                     <div class="flex items-start gap-3">
                       <div class="flex-shrink-0 mt-1">
-                        <img src="/images/logo.svg" alt="" class="w-4 h-5" />
+                        <img src="/images/drip.svg" alt="" class="w-4 h-5" />
                       </div>
                       <div class="flex-1 min-w-0">
                         <h3 class="font-medium text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-1" set:html={link.title} />
-                        <p class="text-sm text-text-secondary" set:html={link.summary} />
+                        <div class="summary-wrapper">
+                          <div class="summary-inner">
+                            <p class="text-sm text-text-secondary" set:html={link.summary} />
+                          </div>
+                        </div>
                       </div>
-                      <svg class="w-4 h-4 text-text-secondary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-4 h-4 text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex-shrink-0 transition-all mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     </div>
@@ -233,3 +237,36 @@ function formatDate(dateStr: string): string {
     </div>
   </footer>
 </Layout>
+
+<style>
+  .summary-wrapper {
+    max-height: 2.8em;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 150ms ease-out;
+  }
+  
+  .summary-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1em;
+    background: linear-gradient(to bottom, transparent, white);
+    transition: opacity 150ms ease-out;
+  }
+  
+  :global(.dark) .summary-wrapper::after {
+    background: linear-gradient(to bottom, transparent, #111111);
+  }
+  
+  .group:hover .summary-wrapper {
+    max-height: 20em;
+    transition: max-height 300ms ease-in-out;
+  }
+  
+  .group:hover .summary-wrapper::after {
+    opacity: 0;
+  }
+</style>

@@ -35,3 +35,51 @@
   --color-muted: #1a1a1a;
   --color-primary-light: #8B8BE6;
 }
+
+/* Animated gradient button */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes gradient-shift-slow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.btn-gradient-animated {
+  background-size: 200% 200%;
+}
+
+.btn-gradient-animated:hover {
+  animation: gradient-shift 3s linear infinite;
+}
+
+.btn-gradient-animated-slow:hover {
+  animation: gradient-shift-slow 5s linear infinite;
+}
+
+/* Glow effects */
+.btn-glow-purple {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3), 0 0 40px rgba(147, 51, 234, 0.2);
+}
+
+.btn-glow-purple:hover {
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.5), 0 0 50px rgba(147, 51, 234, 0.3);
+}
+
+.btn-glow-cyan {
+  box-shadow: 0 0 20px rgba(8, 145, 178, 0.3), 0 0 40px rgba(37, 99, 235, 0.2);
+}
+
+.btn-glow-cyan:hover {
+  box-shadow: 0 0 25px rgba(8, 145, 178, 0.5), 0 0 50px rgba(37, 99, 235, 0.3);
+}
