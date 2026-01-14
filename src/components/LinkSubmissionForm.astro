@@ -16,13 +16,13 @@ const { class: className = "" } = Astro.props;
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label for="submitter-name" class="block text-base font-medium text-text-primary mb-2">
-            Your Name
+            Your First Name
           </label>
           <input
             type="text"
             id="submitter-name"
             name="name"
-            placeholder="John Doe"
+            placeholder="Dwight"
             class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
           />
           <p class="mt-2 text-sm text-red-500 hidden" data-error="name"></p>
@@ -36,7 +36,7 @@ const { class: className = "" } = Astro.props;
             type="email"
             id="submitter-email"
             name="email"
-            placeholder="you@example.com"
+            placeholder="dwight@dundermifflin.com"
             class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
           />
           <p class="mt-2 text-sm text-red-500 hidden" data-error="email"></p>
