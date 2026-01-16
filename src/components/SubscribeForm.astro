@@ -3,8 +3,7 @@ interface Props {
   class?: string;
 }
 
-const { class: className = "" } = Astro.props;
-const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
+const { class: className = "" } = Astro.props;X
 ---
 
 <div id="subscribe-section" class:list={["w-full max-w-md", className]}>
@@ -18,6 +17,7 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
       <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
       </p>
+      <input type="hidden" name="utm_source" id="utm_source" value="" />
       <div>
         <label for="email" class="block text-base font-medium text-text-primary text-left mb-2">
           Email Address
@@ -86,9 +86,19 @@ const convertKitFormId = import.meta.env.PUBLIC_CONVERTKIT_FORM_ID || "";
 </div>
 
 <script is:inline>
-  // Check for success query param on page load
+  // Check for success query param on page load and capture utm_source
   (function() {
     const urlParams = new URLSearchParams(window.location.search);
+    
+    // Capture utm_source from URL
+    const utmSource = urlParams.get('utm_source');
+    if (utmSource) {
+      const utmSourceInput = document.getElementById('utm_source');
+      if (utmSourceInput) {
+        utmSourceInput.value = utmSource;
+      }
+    }
+    
     if (urlParams.get('subscribed') === 'true') {
       const formContainer = document.getElementById('subscribe-form-container');
       const successContainer = document.getElementById('subscribe-success');
