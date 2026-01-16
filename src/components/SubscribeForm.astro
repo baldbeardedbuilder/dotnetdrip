@@ -90,12 +90,22 @@ const { class: className = "" } = Astro.props;
   (function() {
     const urlParams = new URLSearchParams(window.location.search);
     
-    // Capture utm_source from URL
+    // Capture utm_source from URL and store in localStorage
     const utmSource = urlParams.get('utm_source');
     if (utmSource) {
+      localStorage.setItem('utm_source', utmSource);
       const utmSourceInput = document.getElementById('utm_source');
       if (utmSourceInput) {
         utmSourceInput.value = utmSource;
+      }
+    } else {
+      // If not in URL, try to get from localStorage
+      const storedUtmSource = localStorage.getItem('utm_source');
+      if (storedUtmSource) {
+        const utmSourceInput = document.getElementById('utm_source');
+        if (utmSourceInput) {
+          utmSourceInput.value = storedUtmSource;
+        }
       }
     }
     
@@ -105,6 +115,36 @@ const { class: className = "" } = Astro.props;
       if (formContainer && successContainer) {
         formContainer.classList.add('hidden');
         successContainer.classList.remove('hidden');
+      }
+      
+      // Load LinkedIn tracking pixel if utm_source is LinkedIn
+      const storedUtmSource = localStorage.getItem('utm_source');
+      if (storedUtmSource && storedUtmSource.toLowerCase() === 'linkedin') {
+        window._linkedin_partner_id = "8502354";
+        window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+        window._linkedin_data_partner_ids.push(window._linkedin_partner_id);
+        
+        (function(l) {
+          if (!l) {
+            window.lintrk = function(a, b) { window.lintrk.q.push([a, b]); };
+            window.lintrk.q = [];
+          }
+          var s = document.getElementsByTagName("script")[0];
+          var b = document.createElement("script");
+          b.type = "text/javascript";
+          b.async = true;
+          b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+          s.parentNode.insertBefore(b, s);
+        })(window.lintrk);
+        
+        // Add noscript fallback image
+        var noscriptImg = document.createElement("img");
+        noscriptImg.height = 1;
+        noscriptImg.width = 1;
+        noscriptImg.style.display = "none";
+        noscriptImg.alt = "";
+        noscriptImg.src = "https://px.ads.linkedin.com/collect/?pid=8502354&fmt=gif";
+        document.body.appendChild(noscriptImg);
       }
     }
   })();
