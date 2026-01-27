@@ -4,6 +4,9 @@ import { getCollection } from 'astro:content';
 export async function GET(context) {
   const allDrips = await getCollection('drips');
   
+  // Get the actual site URL from the request
+  const siteUrl = context.site || new URL(context.request.url).origin;
+  
   // Get today's date at midnight for comparison
   const today = new Date();
   today.setHours(23, 59, 59, 999);
@@ -24,7 +27,7 @@ export async function GET(context) {
   return rss({
     title: '.NET drip Newsletter',
     description: 'Curated C# and .NET content delivered three days a week. Stay current with the latest news, tutorials, and community resources.',
-    site: context.site || 'https://dotnetdrip.com',
+    site: siteUrl,
     items: sortedDrips.map((drip) => {
       const dateStr = drip.id.replace('/index', '');
       const [year, month, day] = dateStr.split('-').map(Number);
@@ -39,7 +42,7 @@ export async function GET(context) {
         title: `.NET drip - ${pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`,
         pubDate: pubDate,
         description: description,
-        link: `${context.site || 'https://dotnetdrip.com'}/archive`,
+        link: `${siteUrl}/drip/${dateStr}`,
       };
     }),
     customData: `<language>en-us</language>`,
