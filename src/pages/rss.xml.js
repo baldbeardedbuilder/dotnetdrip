@@ -42,7 +42,7 @@ export async function GET(context) {
         title: `.NET drip - ${pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`,
         pubDate: pubDate,
         description: description,
-        link: `${baseUrl}/archive/${dateStr}`,
+        link: `${baseUrl}/archive/${dateStr}/`,
       };
     }),
     customData: `<language>en-us</language>`,
