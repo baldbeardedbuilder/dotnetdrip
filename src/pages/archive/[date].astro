@@ -1,0 +1,106 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import ArchiveSection from "../../components/ArchiveSection.astro";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const allDrips = await getCollection("drips");
+  
+  // Get today's date at midnight for comparison
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
+  
+  // Filter to only published drips
+  const publishedDrips = allDrips.filter((drip) => {
+    const dateStr = drip.id.replace('/index', '');
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const dripDate = new Date(year, month - 1, day);
+    return dripDate <= today;
+  });
+  
+  return publishedDrips.map((drip) => {
+    const dateStr = drip.id.replace('/index', '');
+    return {
+      params: { date: dateStr },
+      props: { drip },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { drip } = Astro.props;
+const dateStr = drip.id.replace('/index', '');
+const [year, month, day] = dateStr.split('-').map(Number);
+const dripDate = new Date(year, month - 1, day);
+const formattedDate = dripDate.toLocaleDateString('en-US', { 
+  year: 'numeric', 
+  month: 'long', 
+  day: 'numeric',
+  weekday: 'long'
+});
+---
+
+<Layout title={`.NET drip - ${formattedDate}`}>
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <a
+          href="/archive"
+          class="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors group"
+        >
+          <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          <span>Back to Archive</span>
+        </a>
+        <a href="/" class="flex items-center gap-2">
+          <img src="/images/logo.svg" alt=".NETdrip Logo" class="h-8 w-8" />
+          <div class="flex items-baseline">
+            <span class="text-xl font-bold text-primary">.NET</span>
+            <span class="text-xl font-light text-primary-light">drip</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="relative py-16 px-6 min-h-screen">
+    <!-- Background elements -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-purple-400/20 via-indigo-400/10 to-transparent rounded-full blur-3xl animate-pulse" style="animation-duration: 8s;"></div>
+      <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-indigo-400/20 via-purple-400/10 to-transparent rounded-full blur-3xl animate-pulse" style="animation-duration: 10s; animation-delay: 1s;"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto relative z-10">
+      <!-- Page header -->
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 mb-6">
+          <svg 
+            class="w-10 h-10 text-white" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" 
+            />
+          </svg>
+        </div>
+        <h1 class="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+          {formattedDate}
+        </h1>
+        <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+          Browse through the links of this newsletter that is packed with C# and .NET insights
+        </p>
+      </div>
+
+      <!-- Archive Section -->
+      <ArchiveSection drip={drip} formattedDate={formattedDate} />
+    </div>
+  </main>
+</Layout>

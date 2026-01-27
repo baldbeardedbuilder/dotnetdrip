@@ -1,0 +1,83 @@
+---
+interface Props {
+  drip: any;
+  formattedDate: string;
+}
+
+const { drip, formattedDate } = Astro.props;
+---
+
+<div class="relative">
+  <!-- Date header -->
+  <div class="flex items-center gap-3 mb-4">
+    <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500/10 to-indigo-500/10 dark:from-purple-500/20 dark:to-indigo-500/20 border border-purple-200 dark:border-purple-800">
+      <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <span class="font-medium text-purple-700 dark:text-purple-300">{formattedDate}</span>
+    </div>
+    <div class="flex-1 h-px bg-gradient-to-r from-purple-200 to-transparent dark:from-purple-800" />
+  </div>
+
+  <!-- Links list -->
+  <div class="space-y-3 pl-2">
+    {drip.data.links?.map((link: any) => (
+      <a
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group block p-4 bg-white dark:bg-[#111111] border border-border rounded-lg hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300"
+      >
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 mt-1">
+            <img src="/images/drip.svg" alt="" class="w-4 h-5" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-medium text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-1" set:html={link.title} />
+            <div class="summary-wrapper">
+              <div class="summary-inner">
+                <p class="text-sm text-text-secondary" set:html={link.summary} />
+              </div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex-shrink-0 transition-all mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </div>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .summary-wrapper {
+    max-height: 2.8em;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 150ms ease-out;
+  }
+  
+  .summary-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1em;
+    background: linear-gradient(to bottom, transparent, white);
+    transition: opacity 150ms ease-out;
+  }
+  
+  :global(.dark) .summary-wrapper::after {
+    background: linear-gradient(to bottom, transparent, #111111);
+  }
+  
+  .group:hover .summary-wrapper {
+    max-height: 20em;
+    transition: max-height 300ms ease-in-out;
+  }
+  
+  .group:hover .summary-wrapper::after {
+    opacity: 0;
+  }
+</style>

@@ -24,7 +24,7 @@ export async function GET(context) {
   return rss({
     title: '.NET drip Newsletter',
     description: 'Curated C# and .NET content delivered three days a week. Stay current with the latest news, tutorials, and community resources.',
-    site: context.site || 'https://dotnetdrip.com',
+    site: context.site,
     items: sortedDrips.map((drip) => {
       const dateStr = drip.id.replace('/index', '');
       const [year, month, day] = dateStr.split('-').map(Number);
@@ -35,11 +35,14 @@ export async function GET(context) {
         `<h3><a href="${link.url}">${link.title}</a></h3><p>${link.summary}</p>`
       ).join('\n');
 
+      // Remove trailing slash from site URL to avoid double slashes
+      const baseUrl = context.site.toString().replace(/\/$/, '');
+
       return {
         title: `.NET drip - ${pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`,
         pubDate: pubDate,
         description: description,
-        link: `${context.site || 'https://dotnetdrip.com'}/archive`,
+        link: `${baseUrl}/archive/${dateStr}/`,
       };
     }),
     customData: `<language>en-us</language>`,
