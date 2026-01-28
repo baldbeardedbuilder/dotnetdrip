@@ -10,8 +10,9 @@ const { class: className = "" } = Astro.props;
   id="theme-toggle"
   type="button"
   aria-label="Toggle dark mode"
+  aria-pressed="false"
   class:list={[
-    "p-3 rounded-full bg-surface border border-border shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 active:scale-95",
+    "p-3 rounded-full bg-surface border border-border shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
     className
   ]}
 >
@@ -63,6 +64,8 @@ const { class: className = "" } = Astro.props;
       sunIcon?.classList.add("hidden");
       moonIcon?.classList.remove("hidden");
     }
+    // Update ARIA pressed state
+    themeToggle?.setAttribute("aria-pressed", isDark.toString());
   }
 
   // Initialize icons based on current theme

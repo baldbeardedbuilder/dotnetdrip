@@ -23,9 +23,10 @@ const { class: className = "" } = Astro.props;
             id="submitter-name"
             name="name"
             placeholder="Dwight"
+            aria-describedby="name-error"
             class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
           />
-          <p class="mt-2 text-sm text-red-500 hidden" data-error="name"></p>
+          <p class="mt-2 text-sm text-red-500 hidden" id="name-error" data-error="name" role="alert"></p>
         </div>
 
         <div>
@@ -37,9 +38,10 @@ const { class: className = "" } = Astro.props;
             id="submitter-email"
             name="email"
             placeholder="dwight@dundermifflin.com"
+            aria-describedby="email-error"
             class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
           />
-          <p class="mt-2 text-sm text-red-500 hidden" data-error="email"></p>
+          <p class="mt-2 text-sm text-red-500 hidden" id="email-error" data-error="email" role="alert"></p>
         </div>
       </div>
 
@@ -53,9 +55,10 @@ const { class: className = "" } = Astro.props;
           name="link"
           placeholder="https://example.com/awesome-csharp-article"
           required
+          aria-describedby="link-error"
           class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
         />
-        <p class="mt-2 text-sm text-red-500 hidden" data-error="link"></p>
+        <p class="mt-2 text-sm text-red-500 hidden" id="link-error" data-error="link" role="alert"></p>
       </div>
 
       <button

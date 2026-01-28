@@ -11,7 +11,7 @@ interface Props {
 const { 
   title = ".NET drip - Your Regular Dose of C# and .NET", 
   description = "Your regular dose of C# and .NET programming insights, tutorials, and community news delivered straight to your inbox.",
-  image = "/images/ograph.png"
+  image = "/images/ograph.webp"
 } = Astro.props;
 
 const siteUrl = "https://dotnetdrip.com";
@@ -26,7 +26,13 @@ const imageUrl = new URL(image, siteUrl).href;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" type="application/rss+xml" title=".NET drip Newsletter" href="/rss.xml" />
     
@@ -47,7 +53,9 @@ const imageUrl = new URL(image, siteUrl).href;
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200,400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
     
     <!-- Inline script to prevent flash of wrong theme -->
     <script is:inline>
@@ -59,6 +67,11 @@ const imageUrl = new URL(image, siteUrl).href;
     </script>
   </head>
   <body class="min-h-screen bg-background font-sans antialiased transition-colors duration-200">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+      Skip to main content
+    </a>
+    
     <!-- Theme Toggle -->
     <div class="fixed bottom-6 right-6 z-50">
       <ThemeToggle />

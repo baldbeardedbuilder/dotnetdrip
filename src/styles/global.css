@@ -83,3 +83,32 @@
 .btn-glow-cyan:hover {
   box-shadow: 0 0 25px rgba(8, 145, 178, 0.5), 0 0 50px rgba(37, 99, 235, 0.3);
 }
+
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .btn-gradient-animated:hover,
+  .btn-gradient-animated-slow:hover {
+    animation: none;
+  }
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -28,9 +28,11 @@ const { class: className = "" } = Astro.props;
           name="email"
           placeholder="you@example.com"
           required
+          aria-describedby="email-error"
+          aria-invalid="false"
           class="w-full px-4 py-3 rounded-lg border border-border bg-surface text-base text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
         />
-        <p id="email-error" class="mt-2 text-sm text-red-500 hidden"></p>
+        <p id="email-error" class="mt-2 text-sm text-red-500 hidden" role="alert"></p>
       </div>
       
       <button
@@ -141,12 +143,18 @@ const { class: className = "" } = Astro.props;
       subscribeEmailError.textContent = message;
       subscribeEmailError.classList.remove("hidden");
     }
+    if (subscribeEmailInput) {
+      subscribeEmailInput.setAttribute("aria-invalid", "true");
+    }
   }
   
   function clearSubscribeError() {
     if (subscribeEmailError) {
       subscribeEmailError.textContent = "";
       subscribeEmailError.classList.add("hidden");
+    }
+    if (subscribeEmailInput) {
+      subscribeEmailInput.setAttribute("aria-invalid", "false");
     }
   }
   
