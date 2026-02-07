@@ -1,0 +1,93 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<div class:list={["inline-subscribe relative my-6 p-6 rounded-xl bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-purple-500/10 dark:from-purple-500/20 dark:via-indigo-500/20 dark:to-purple-500/20 border border-purple-200 dark:border-purple-800", className]}>
+  <div id="inline-subscribe-form-container" class="flex flex-col md:flex-row items-center gap-4">
+    <div class="flex-1 text-center md:text-left">
+      <h3 class="text-lg font-semibold text-text-primary mb-1">
+        Enjoying these links? 💜
+      </h3>
+      <p class="text-sm text-text-secondary">
+        Get them delivered to your inbox every Monday, Wednesday, and Friday.
+      </p>
+    </div>
+    <form 
+      class="flex flex-col sm:flex-row gap-2 w-full md:w-auto" 
+      action="/?subscribed=true" 
+      method="POST" 
+      id="inline-subscribe-form" 
+      name="net-drip" 
+      data-netlify="true" 
+      netlify-honeypot="bot-field"
+    >
+      <p class="hidden">
+        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+      </p>
+      <input type="hidden" name="utm_source" id="inline_utm_source" value="" />
+      <input
+        type="email"
+        name="email"
+        placeholder="you@example.com"
+        required
+        class="px-4 py-2.5 rounded-lg border border-border bg-white dark:bg-[#111111] text-sm text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 w-full sm:w-64"
+      />
+      <button
+        type="submit"
+        class="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 whitespace-nowrap"
+      >
+        Subscribe
+      </button>
+    </form>
+  </div>
+  
+  <div id="inline-subscribe-success" class="hidden text-center">
+    <div class="flex items-center justify-center gap-2 text-green-600 dark:text-green-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+      <span class="font-medium">You're subscribed! Check your inbox.</span>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    // Populate utm_source from localStorage if available
+    const storedUtmSource = localStorage.getItem('utm_source');
+    if (storedUtmSource) {
+      const utmSourceInput = document.getElementById('inline_utm_source');
+      if (utmSourceInput) {
+        utmSourceInput.value = storedUtmSource;
+      }
+    }
+    
+    // Check for success
+    if (window.location.search.includes('subscribed=true')) {
+      const formContainer = document.getElementById('inline-subscribe-form-container');
+      const successContainer = document.getElementById('inline-subscribe-success');
+      if (formContainer && successContainer) {
+        formContainer.classList.add('hidden');
+        successContainer.classList.remove('hidden');
+      }
+    }
+  })();
+
+  const inlineForm = document.getElementById("inline-subscribe-form");
+  
+  inlineForm?.addEventListener("submit", (e) => {
+    const email = inlineForm.querySelector('input[name="email"]')?.value?.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!email || !emailRegex.test(email)) {
+      e.preventDefault();
+      alert("Please enter a valid email address");
+      return;
+    }
+    // Validation passed - allow form to submit to Netlify
+  });
+</script>
