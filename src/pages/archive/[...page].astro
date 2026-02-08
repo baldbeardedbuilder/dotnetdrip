@@ -40,9 +40,16 @@ function formatDate(dateStr: string): string {
     day: 'numeric' 
   });
 }
+
+const  
+  title = `Newsletter Archive`, 
+  description = "Your regular dose of C# and .NET programming insights, tutorials, and community news delivered straight to your inbox.",
+	permalink = page.url,
+	ographTitle = "Browse through our collection of past editions;\nEach packed with C# and .NET insights."
+;
 ---
 
-<Layout title="Newsletter Archive - .NET drip">
+<Layout {title} {description} {permalink} {ographTitle}>
   <!-- Header -->
   <header class="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border">
     <div class="max-w-6xl mx-auto px-6 py-4">

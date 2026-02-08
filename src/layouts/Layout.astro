@@ -1,63 +1,21 @@
 ---
 import "../styles/global.css";
+import Head, {
+  type Props as BaseHeadProps,
+} from "../components/Head.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 
-interface Props {
-  title: string;
-  description?: string;
-  image?: string;
-}
+export interface Props extends BaseHeadProps {}
 
-const { 
-  title = ".NET drip - Your Regular Dose of C# and .NET", 
-  description = "Your regular dose of C# and .NET programming insights, tutorials, and community news delivered straight to your inbox.",
-  image = "/images/ograph.webp"
-} = Astro.props;
-
-const siteUrl = "https://dotnetdrip.com";
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
-const imageUrl = new URL(image, siteUrl).href;
+const { title, description, permalink, ographTitle } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+  	<Head {title} {description} {permalink} {ographTitle} />
     
-    <!-- Favicons -->
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    
-    <link rel="canonical" href={canonicalUrl} />
-    <link rel="alternate" type="application/rss+xml" title=".NET drip Newsletter" href="/rss.xml" />
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={canonicalUrl} />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={imageUrl} />
-
-    <!-- Open Graph / Facebook / LinkedIn -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={imageUrl} />
-    <meta property="og:site_name" content=".NET drip" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
-    
-    <!-- Inline script to prevent flash of wrong theme -->
+  	<!-- Inline script to prevent flash of wrong theme -->
     <script is:inline>
       const theme = localStorage.getItem("theme");
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;

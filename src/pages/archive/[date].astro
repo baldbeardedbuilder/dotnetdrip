@@ -38,9 +38,16 @@ const formattedDate = dripDate.toLocaleDateString('en-US', {
   day: 'numeric',
   weekday: 'long'
 });
+
+const  
+  title = `Drip for ${formattedDate}`, 
+  description = `Your regular dose of C# and .NET programming insights, tutorials, and community news for ${formattedDate}`,
+	permalink = `https://dotnetdrip.com/archive/${dateStr}/`,
+	ographTitle = `Your regular dose of C# and .NET programming insights, tutorials, and community news for \n${formattedDate}`	
+;
 ---
 
-<Layout title={`.NET drip - ${formattedDate}`}>
+<Layout {title} {description} {permalink} {ographTitle}>
   <!-- Header -->
   <header class="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border">
     <div class="max-w-6xl mx-auto px-6 py-4">
