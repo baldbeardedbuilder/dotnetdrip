@@ -1,19 +1,14 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
+import { isDripPublished } from '../scripts/publish';
 
 export async function GET(context) {
   const allDrips = await getCollection('drips');
   
-  // Get today's date at midnight for comparison
-  const today = new Date();
-  today.setHours(23, 59, 59, 999);
-  
-  // Filter to only include editions with publishDate <= today
+  // Filter to only include published drips (8 AM Central Time)
   const publishedDrips = allDrips.filter((drip) => {
     const dateStr = drip.id.replace('/index', '');
-    const [year, month, day] = dateStr.split('-').map(Number);
-    const dripDate = new Date(year, month - 1, day);
-    return dripDate <= today;
+    return isDripPublished(dateStr);
   });
   
   // Sort by id (date) in descending order

@@ -3,20 +3,15 @@ import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import ArchiveSection from "../../components/ArchiveSection.astro";
 import type { GetStaticPaths } from "astro";
+import { isDripPublished } from "../../scripts/publish";
 
 export const getStaticPaths = (async () => {
   const allDrips = await getCollection("drips");
   
-  // Get today's date at midnight for comparison
-  const today = new Date();
-  today.setHours(23, 59, 59, 999);
-  
-  // Filter to only published drips
+  // Filter to only published drips (8 AM Central Time)
   const publishedDrips = allDrips.filter((drip) => {
     const dateStr = drip.id.replace('/index', '');
-    const [year, month, day] = dateStr.split('-').map(Number);
-    const dripDate = new Date(year, month - 1, day);
-    return dripDate <= today;
+    return isDripPublished(dateStr);
   });
   
   return publishedDrips.map((drip) => {

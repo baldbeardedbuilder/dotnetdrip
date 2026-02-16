@@ -4,17 +4,14 @@ import Logo from "../components/Logo.astro";
 import SubscribeForm from "../components/SubscribeForm.astro";
 import LinkSubmissionForm from "../components/LinkSubmissionForm.astro";
 import { getCollection } from "astro:content";
+import { isDripPublished } from "../scripts/publish";
 
-// Get published drips (date <= today)
+// Get published drips (published at 8 AM Central Time)
 const allDrips = await getCollection("drips");
-const today = new Date();
-today.setHours(23, 59, 59, 999);
 
 const publishedDrips = allDrips.filter((drip) => {
   const dateStr = drip.id.replace('/index', '');
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const dripDate = new Date(year, month - 1, day);
-  return dripDate <= today;
+  return isDripPublished(dateStr);
 });
 
 const issueCount = publishedDrips.length;
