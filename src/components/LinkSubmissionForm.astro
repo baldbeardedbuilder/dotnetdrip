@@ -157,7 +157,7 @@ const { class: className = "" } = Astro.props;
     const link = formData.get("link");
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?(\?[^\s]*)?$/;
     
     // Only validate email format if one is provided
     if (email && !emailRegex.test(email)) {
