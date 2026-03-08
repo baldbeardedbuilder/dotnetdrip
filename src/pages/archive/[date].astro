@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getCollection } from "astro:content";
-import ArchiveSection from "../../components/ArchiveSection.astro";
+import { getCollection, render } from "astro:content";
+import InlineSubscribe from "../../components/InlineSubscribe.astro";
 import type { GetStaticPaths } from "astro";
 import { isDripPublished } from "../../scripts/publish";
 
@@ -34,11 +34,31 @@ const formattedDate = dripDate.toLocaleDateString('en-US', {
   weekday: 'long'
 });
 
+const links = drip.data.links || [];
+const totalLinks = links.length;
+const hasBody = drip.body && drip.body.trim().length > 0;
+
+// Extract the H2 title from the markdown body if present
+let tipTitle = "";
+if (hasBody) {
+  const h2Match = drip.body.match(/^##\s+(.+)$/m);
+  if (h2Match) {
+    tipTitle = h2Match[1].replace(/&amp;/g, '&');
+  }
+}
+
+let TipContent: any = null;
+if (hasBody) {
+  const rendered = await render(drip);
+  TipContent = rendered.Content;
+}
+
+const pageTitle = tipTitle || `Drip for ${formattedDate}`;
 const  
-  title = `Drip for ${formattedDate}`, 
-  description = `Your regular dose of C# and .NET programming insights, tutorials, and community news for ${formattedDate}`,
+  title = pageTitle, 
+  description = tipTitle ? `${tipTitle} — plus ${totalLinks} curated .NET links` : `Your weekly .NET tip and curated links for ${formattedDate}`,
 	permalink = `https://dotnetdrip.com/archive/${dateStr}/`,
-	ographTitle = `Your regular dose of C# and .NET programming insights, tutorials, and community news for \n${formattedDate}`	
+	ographTitle = tipTitle || `Your weekly .NET tip and curated links for \n${formattedDate}`
 ;
 ---
 
@@ -72,36 +92,117 @@ const
     <div class="max-w-4xl mx-auto relative z-10">
       <!-- Page header -->
       <div class="text-center mb-8 sm:mb-12">
-        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 mb-6">
-          <svg 
-            class="w-10 h-10 text-white" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path 
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="2" 
-              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" 
-            />
-          </svg>
-        </div>
-        <h1 class="text-2xl sm:text-3xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
-          {formattedDate}
+        <h1 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+          {tipTitle || formattedDate}
         </h1>
-        <p class="text-lg text-text-secondary max-w-2xl mx-auto">
-          Browse through the links of this newsletter that is packed with C# and .NET insights
-        </p>
       </div>
 
-      <!-- Archive Section -->
-      <ArchiveSection drip={drip} formattedDate={formattedDate} />
+      {hasBody ? (
+        <!-- New-style drip: full tip, subscribe, then links -->
+        <div class="space-y-10">
+          <!-- Full tip content in a card with overlapping date pill -->
+          <div class="relative pt-4">
+            <div class="absolute top-0 left-3 z-10 flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500/10 to-indigo-500/10 dark:from-purple-500/20 dark:to-indigo-500/20 border border-purple-200 dark:border-purple-800 shadow-sm backdrop-blur-sm">
+              <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="font-medium text-purple-700 dark:text-purple-300">{formattedDate}</span>
+            </div>
+            <div class="p-6 sm:p-8 pt-8 sm:pt-10 bg-white dark:bg-[#111111] border border-border rounded-2xl shadow-sm">
+              <div class="post-content text-text-secondary leading-relaxed">
+                <TipContent />
+              </div>
+            </div>
+          </div>
+
+          <!-- Subscribe -->
+          <InlineSubscribe />
+
+          <!-- Links section -->
+          {totalLinks > 0 && (
+            <div>
+              <div class="flex items-center gap-3 mb-6">
+                <h2 class="text-lg font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+                  Curated Links
+                </h2>
+                <div class="flex-1 h-px bg-gradient-to-r from-purple-200 to-transparent dark:from-purple-800" />
+              </div>
+              <div class="space-y-3">
+                {links.map((link: any) => (
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group block p-4 bg-white dark:bg-[#111111] border border-border rounded-lg hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300"
+                  >
+                    <div class="flex items-start gap-3">
+                      <div class="flex-shrink-0 mt-1">
+                        <img src="/images/drip.svg" alt="" class="w-4 h-5" />
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <h3 class="font-medium text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-1" set:html={link.title} />
+                        <div class="summary-wrapper">
+                          <div class="summary-inner">
+                            <p class="text-sm text-text-secondary" set:html={link.summary} />
+                          </div>
+                        </div>
+                      </div>
+                      <svg class="w-4 h-4 text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex-shrink-0 transition-all mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <!-- Legacy drip: links with inline subscribe -->
+        <div class="space-y-3 pl-2">
+          {links.map((link: any, index: number) => {
+            const insertAfterIndex = totalLinks >= 12 ? 6 : Math.floor(totalLinks / 2);
+            return (
+              <>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group block p-4 bg-white dark:bg-[#111111] border border-border rounded-lg hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300"
+                >
+                  <div class="flex items-start gap-3">
+                    <div class="flex-shrink-0 mt-1">
+                      <img src="/images/drip.svg" alt="" class="w-4 h-5" />
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="font-medium text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-1" set:html={link.title} />
+                      <div class="summary-wrapper">
+                        <div class="summary-inner">
+                          <p class="text-sm text-text-secondary" set:html={link.summary} />
+                        </div>
+                      </div>
+                    </div>
+                    <svg class="w-4 h-4 text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex-shrink-0 transition-all mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </div>
+                </a>
+                {index === insertAfterIndex - 1 && totalLinks > 3 && (
+                  <InlineSubscribe />
+                )}
+              </>
+            );
+          })}
+          {totalLinks <= 3 && (
+            <InlineSubscribe />
+          )}
+        </div>
+      )}
     </div>
   </main>
 </Layout>
 
-<style is:global>
+<style>
   .logo-tooltip::after {
     content: '';
     position: absolute;
@@ -112,5 +213,143 @@ const
     border-style: solid;
     border-color: transparent;
     border-left-color: rgba(147, 51, 234, 0.9);
+  }
+
+  .post-content :global(h2:first-child) {
+    display: none;
+  }
+
+  .post-content :global(h2) {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    margin-top: 2rem;
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  :global(.dark) .post-content :global(h2) {
+    background: linear-gradient(to right, #818cf8, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .post-content :global(p) {
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+  }
+
+  .post-content :global(code) {
+    font-size: 1em;
+    padding: 0.15em 0.4em;
+    border-radius: 0.25rem;
+    background-color: #f3f4f6;
+    color: #7c3aed;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  :global(.dark) .post-content :global(code) {
+    background-color: #1f1f1f;
+    color: #a78bfa;
+  }
+
+  .post-content :global(.expressive-code pre code) {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  .post-content :global(.expressive-code pre) {
+    max-height: 20rem;
+  }
+
+  .post-content :global(strong) {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .post-content :global(ul) {
+    margin: 1rem 0 1.5rem 1.5rem;
+    line-height: 1.8;
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .post-content :global(blockquote) {
+    border-left: 4px solid rgba(147, 51, 234, 0.6);
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background: rgba(147, 51, 234, 0.1);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+  }
+
+  .post-content :global(table) {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+    font-size: 0.85em;
+  }
+
+  .post-content :global(th),
+  .post-content :global(td) {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .post-content :global(th) {
+    font-weight: 600;
+    background-color: #f3f4f6;
+    color: var(--color-text-primary);
+  }
+
+  :global(.dark) .post-content :global(th) {
+    background-color: #1a1a1a;
+  }
+
+  .post-content :global(a) {
+    color: #6366f1;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-content :global(a:hover) {
+    color: #7c3aed;
+  }
+
+  .summary-wrapper {
+    max-height: 2.8em;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 150ms ease-out;
+  }
+
+  .summary-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1em;
+    background: linear-gradient(to bottom, transparent, white);
+    transition: opacity 150ms ease-out;
+  }
+
+  :global(.dark) .summary-wrapper::after {
+    background: linear-gradient(to bottom, transparent, #111111);
+  }
+
+  .group:hover .summary-wrapper {
+    max-height: 20em;
+    transition: max-height 300ms ease-in-out;
+  }
+
+  .group:hover .summary-wrapper::after {
+    opacity: 0;
   }
 </style>

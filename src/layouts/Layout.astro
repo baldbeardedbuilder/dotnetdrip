@@ -153,5 +153,176 @@ const { title, description, permalink, ographTitle } = Astro.props;
     </footer>
 
     <script defer src="https://bvyerlczpakdlfvybkev.supabase.co/functions/v1/analytics-js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.expressive-code .copy button, .expressive-code button.copy').forEach(btn => {
+          btn.removeAttribute('title');
+        });
+      });
+    </script>
   </body>
 </html>
+
+<style>
+  :global(.expressive-code .copy button) {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    width: 24px !important;
+    height: 24px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  :global(.expressive-code .copy button:hover),
+  :global(.expressive-code .copy button:focus),
+  :global(.expressive-code .copy button:active) {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  :global(.expressive-code .copy button::before),
+  :global(.expressive-code button.copy::before) {
+    width: 14px !important;
+    height: 14px !important;
+    border: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+  }
+
+  :global(.expressive-code .copy button::after),
+  :global(.expressive-code button.copy::after) {
+    width: 14px !important;
+    height: 14px !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: background-color 0.2s ease !important;
+  }
+
+  :global(.expressive-code .copy button:hover::before),
+  :global(.expressive-code button.copy:hover::before) {
+    background-color: transparent !important;
+  }
+
+  :global(.expressive-code .copy button:hover::after),
+  :global(.expressive-code button.copy:hover::after) {
+    background-color: white !important;
+  }
+
+  :global(.expressive-code .copy),
+  :global(.expressive-code button.copy),
+  :global(.expressive-code div.copy),
+  :global(.expressive-code .copy button div),
+  :global(.expressive-code button.copy div) {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    margin-right: 0.5rem !important;
+  }
+
+  :global(.expressive-code .copy:hover),
+  :global(.expressive-code button.copy:hover),
+  :global(.expressive-code div.copy:hover),
+  :global(.expressive-code .copy button:hover div),
+  :global(.expressive-code button.copy:hover div),
+  :global(.expressive-code .copy button div:hover),
+  :global(.expressive-code button.copy div:hover) {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  :global(.expressive-code) {
+    background: rgba(30, 30, 50, 0.95) !important;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(128, 128, 128, 0.2) !important;
+    margin: 1.5rem 0 !important;
+    max-width: 100%;
+    overflow-x: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  :global(.expressive-code .frame) {
+    background: transparent !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100%;
+  }
+
+  :global(.expressive-code pre) {
+    padding: 1.25rem 0.75rem !important;
+    border: none !important;
+    margin: 0 !important;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  :global(.expressive-code pre code) {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  :global(.expressive-code figure) {
+    background: transparent !important;
+    border: none !important;
+    margin: 0 !important;
+    max-width: 100%;
+  }
+
+  :global(.expressive-code .copy .feedback),
+  :global(.expressive-code .copy [data-tooltip]),
+  :global(.expressive-code .copy .tooltip) {
+    display: none !important;
+  }
+
+  :global(.expressive-code .copy) {
+    position: relative;
+  }
+
+  :global(.expressive-code .copy::before) {
+    content: 'Copy this snippet';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #9333ea, #3b82f6);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.65rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    margin-right: 0.6rem;
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+  }
+
+  :global(.expressive-code .copy::after) {
+    content: '';
+    position: absolute;
+    right: calc(100% + 0.1rem);
+    top: 50%;
+    transform: translateY(-50%);
+    border: 4px solid transparent;
+    border-left-color: #3b82f6;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  :global(.expressive-code .copy:hover::before),
+  :global(.expressive-code .copy:hover::after) {
+    opacity: 1;
+  }
+</style>

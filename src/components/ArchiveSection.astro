@@ -1,5 +1,6 @@
 ---
 import InlineSubscribe from "./InlineSubscribe.astro";
+import { render } from "astro:content";
 
 interface Props {
   drip: any;
@@ -8,11 +9,19 @@ interface Props {
 
 const { drip, formattedDate } = Astro.props;
 
-// Calculate where to insert the subscribe form
 const links = drip.data.links || [];
 const totalLinks = links.length;
-// Insert after 6th link for slug pages (12 links), or after half for shorter lists
 const insertAfterIndex = totalLinks >= 12 ? 6 : Math.floor(totalLinks / 2);
+const dateSlug = drip.id.replace('/index', '');
+
+// Detect new-style drips that have a body (the .NET tip)
+const hasBody = drip.body && drip.body.trim().length > 0;
+
+let TipContent: any = null;
+if (hasBody) {
+  const rendered = await render(drip);
+  TipContent = rendered.Content;
+}
 ---
 
 <div class="relative">
@@ -27,42 +36,70 @@ const insertAfterIndex = totalLinks >= 12 ? 6 : Math.floor(totalLinks / 2);
     <div class="flex-1 h-px bg-gradient-to-r from-purple-200 to-transparent dark:from-purple-800" />
   </div>
 
-  <!-- Links list -->
-  <div class="space-y-3 pl-2">
-    {links.map((link: any, index: number) => (
-      <>
+  {hasBody ? (
+    <!-- New-style drip: tip preview + read more -->
+    <div class="pl-2 space-y-4">
+      <div class="p-5 bg-white dark:bg-[#111111] border border-border rounded-lg">
+        <div class="tip-preview-wrapper">
+          <div class="tip-preview text-text-secondary text-sm leading-relaxed max-w-none">
+            <TipContent />
+          </div>
+          <div class="tip-fade"></div>
+        </div>
         <a
-          href={link.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group block p-4 bg-white dark:bg-[#111111] border border-border rounded-lg hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300"
+          href={`/archive/${dateSlug}/`}
+          class="group inline-flex items-center gap-2 mt-3 text-sm text-indigo-600 dark:text-indigo-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
         >
-          <div class="flex items-start gap-3">
-            <div class="flex-shrink-0 mt-1">
-              <img src="/images/drip.svg" alt="" class="w-4 h-5" />
-            </div>
-            <div class="flex-1 min-w-0">
-              <h3 class="font-medium text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-1" set:html={link.title} />
-              <div class="summary-wrapper">
-                <div class="summary-inner">
-                  <p class="text-sm text-text-secondary" set:html={link.summary} />
+          <img src="/images/drip.svg" alt="" class="w-4 h-5" />
+          <span>
+            Read the full tip{totalLinks > 0 && <> + <strong>{totalLinks}</strong> curated {totalLinks === 1 ? 'link' : 'links'}</>}
+          </span>
+          <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+      <InlineSubscribe />
+    </div>
+  ) : (
+    <!-- Legacy drip: show all links -->
+    <div class="space-y-3 pl-2">
+      {links.map((link: any, index: number) => (
+        <>
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group block p-4 bg-white dark:bg-[#111111] border border-border rounded-lg hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-300"
+          >
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 mt-1">
+                <img src="/images/drip.svg" alt="" class="w-4 h-5" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-medium text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-1" set:html={link.title} />
+                <div class="summary-wrapper">
+                  <div class="summary-inner">
+                    <p class="text-sm text-text-secondary" set:html={link.summary} />
+                  </div>
                 </div>
               </div>
+              <svg class="w-4 h-4 text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex-shrink-0 transition-all mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
             </div>
-            <svg class="w-4 h-4 text-text-primary group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex-shrink-0 transition-all mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </div>
-        </a>
-        {index === insertAfterIndex - 1 && totalLinks > 3 && (
-          <InlineSubscribe />
-        )}
-      </>
-    ))}
-    {totalLinks <= 3 && (
-      <InlineSubscribe />
-    )}
-  </div>
+          </a>
+          {index === insertAfterIndex - 1 && totalLinks > 3 && (
+            <InlineSubscribe />
+          )}
+        </>
+      ))}
+      {totalLinks <= 3 && (
+        <InlineSubscribe />
+      )}
+    </div>
+  )}
 </div>
 
 <style>
@@ -95,5 +132,132 @@ const insertAfterIndex = totalLinks >= 12 ? 6 : Math.floor(totalLinks / 2);
   
   .group:hover .summary-wrapper::after {
     opacity: 0;
+  }
+
+  .tip-preview-wrapper {
+    position: relative;
+    max-height: 40rem;
+    overflow: hidden;
+  }
+
+  .tip-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
+    background: linear-gradient(to bottom, transparent, white);
+    pointer-events: none;
+  }
+
+  :global(.dark) .tip-fade {
+    background: linear-gradient(to bottom, transparent, #111111);
+  }
+
+  .tip-preview :global(h2) {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  :global(.dark) .tip-preview :global(h2) {
+    background: linear-gradient(to right, #818cf8, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .tip-preview :global(p) {
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+  }
+
+  .tip-preview :global(code) {
+    font-size: 1em;
+    padding: 0.15em 0.4em;
+    border-radius: 0.25rem;
+    background-color: #f3f4f6;
+    color: #7c3aed;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  :global(.dark) .tip-preview :global(code) {
+    background-color: #1f1f1f;
+    color: #a78bfa;
+  }
+
+  .tip-preview :global(strong) {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .tip-preview :global(ul) {
+    margin: 1rem 0 1.5rem 1.5rem;
+    line-height: 1.8;
+  }
+
+  .tip-preview :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .tip-preview :global(blockquote) {
+    border-left: 4px solid rgba(147, 51, 234, 0.6);
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background: rgba(147, 51, 234, 0.1);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+  }
+
+  .tip-preview :global(table) {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+    font-size: 0.85em;
+  }
+
+  .tip-preview :global(th),
+  .tip-preview :global(td) {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .tip-preview :global(th) {
+    font-weight: 600;
+    background-color: #f3f4f6;
+    color: var(--color-text-primary);
+  }
+
+  :global(.dark) .tip-preview :global(th) {
+    background-color: #1a1a1a;
+  }
+
+  .tip-preview :global(a) {
+    color: #6366f1;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .tip-preview :global(a:hover) {
+    color: #7c3aed;
+  }
+
+  .tip-preview :global(.expressive-code) {
+    margin: 1.5rem 0 !important;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .tip-preview :global(.expressive-code pre) {
+    max-height: 20rem;
+  }
+
+  .tip-preview :global(.expressive-code pre code) {
+    background: none;
+    padding: 0;
   }
 </style>
