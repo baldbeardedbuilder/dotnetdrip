@@ -9,7 +9,7 @@ export interface Props {
 const { title, description, permalink, ographTitle } = Astro.props;
 const encodedTitle = encodeURIComponent(ographTitle || title);
 
-const ograph = `https://res.cloudinary.com/dk3rdh3yo/image/upload/g_north_west,x_67,y_450,w_1000,c_fit,co_white,l_text:Roboto_42:${encodedTitle.replaceAll('%2C', '%252C')}/website-assets/ograph-drip_ojst7w.png`;
+const ograph = `https://res.cloudinary.com/dk3rdh3yo/image/upload/g_north_west,x_67,y_450,w_1000,c_fit,co_white,l_text:Roboto_42:${encodedTitle.replaceAll('%2C', '%252C')}/website-assets/ograph-drip.png`;
 ---
 
 <!-- Global Metadata -->
