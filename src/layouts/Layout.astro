@@ -7,13 +7,13 @@ import ThemeToggle from "../components/ThemeToggle.astro";
 
 export interface Props extends BaseHeadProps {}
 
-const { title, description, permalink, ographTitle } = Astro.props;
+const { title, description, permalink, ographTitle, ographImage } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-  	<Head {title} {description} {permalink} {ographTitle} />
+    <Head {title} {description} {permalink} {ographTitle} {ographImage} />
     
   	<!-- Inline script to prevent flash of wrong theme -->
     <script is:inline>

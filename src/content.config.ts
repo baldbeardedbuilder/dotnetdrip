@@ -47,6 +47,7 @@ const dripsCollection = defineCollection({
   loader: glob({ pattern: "**/index.md", base: "./src/content/drips" }),
   schema: z.object({
     publishDate: z.string(),
+    social_title: z.string().optional(),
     links: z.array(
             z.object({
               title: z.string(),
