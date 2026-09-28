@@ -4,6 +4,7 @@ import { getCollection, render } from "astro:content";
 import InlineSubscribe from "../../components/InlineSubscribe.astro";
 import type { GetStaticPaths } from "astro";
 import { isDripPublished } from "../../scripts/publish";
+import { buildArchiveSocialImage } from "../../lib/social-images";
 
 export const getStaticPaths = (async () => {
   const allDrips = await getCollection("drips");
@@ -54,15 +55,21 @@ if (hasBody) {
 }
 
 const pageTitle = tipTitle || `Drip for ${formattedDate}`;
+const socialTitle = drip.data.social_title || pageTitle;
 const  
   title = pageTitle, 
   description = tipTitle ? `${tipTitle} — plus ${totalLinks} curated .NET links` : `Your weekly .NET tip and curated links for ${formattedDate}`,
 	permalink = `https://dotnetdrip.com/archive/${dateStr}/`,
-	ographTitle = tipTitle || `Your weekly .NET tip and curated links for \n${formattedDate}`
+	ographTitle = socialTitle,
+  ographImage = buildArchiveSocialImage({
+    date: dripDate,
+    title: socialTitle,
+    linkCount: totalLinks,
+  })
 ;
 ---
 
-<Layout {title} {description} {permalink} {ographTitle}>
+<Layout {title} {description} {permalink} {ographTitle} {ographImage}>
   <!-- Header -->
   <header class="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border">
     <div class="max-w-6xl mx-auto px-6 py-4">

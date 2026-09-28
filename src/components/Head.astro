@@ -4,12 +4,13 @@ export interface Props {
   description: string;
   permalink: string;
 	ographTitle: string;
+  ographImage?: string;
 }
 
-const { title, description, permalink, ographTitle } = Astro.props;
+const { title, description, permalink, ographTitle, ographImage } = Astro.props;
 const encodedTitle = encodeURIComponent(ographTitle || title);
 
-const ograph = `https://res.cloudinary.com/dk3rdh3yo/image/upload/g_north_west,x_67,y_450,w_1000,c_fit,co_white,l_text:Roboto_42:${encodedTitle.replaceAll('%2C', '%252C')}/website-assets/ograph-drip.png`;
+const ograph = ographImage || `https://res.cloudinary.com/dk3rdh3yo/image/upload/g_north_west,x_67,y_450,w_1000,c_fit,co_white,l_text:Roboto_42:${encodedTitle.replaceAll('%2C', '%252C')}/website-assets/ograph-drip.png`;
 ---
 
 <!-- Global Metadata -->
