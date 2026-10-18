@@ -9,7 +9,7 @@ const { class: className = "" } = Astro.props;
 <div id="link-section" class:list={["w-full max-w-2xl", className]}>
   <!-- Form State (visible by default) -->
   <div id="link-form-container">
-    <form class="space-y-6 text-left" action="/?linked=true#link-section" method="POST" id="link-submission-form" name="net-drip-link" data-netlify="true" netlify-honeypot="bot-field2">
+    <form class="space-y-6 text-left" action="/?linked=true#link-section" method="POST" id="link-submission-form" name="net-drip-link" data-webhook={import.meta.env.PUBLIC_HOOKDECK_LINK_SUBMISSION_WEBHOOK ?? ""} data-success-param="linked" data-success-hash="link-section">
       <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field2" /></label>
       </p>
@@ -68,6 +68,7 @@ const { class: className = "" } = Astro.props;
       >
         Submit Link
       </button>
+      <p class="hidden text-sm text-red-500" data-webhook-status role="alert"></p>
     </form>
   </div>
 
@@ -183,8 +184,6 @@ const { class: className = "" } = Astro.props;
       e.preventDefault();
       return;
     }
-    
-    // Validation passed - allow form to submit naturally
   });
 
   // Handle reset link click
@@ -203,4 +202,8 @@ const { class: className = "" } = Astro.props;
     url.searchParams.delete('linked');
     window.history.replaceState({}, '', url);
   });
+</script>
+
+<script>
+  import "../scripts/submit-to-webhook";
 </script>
