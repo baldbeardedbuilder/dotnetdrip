@@ -13,7 +13,7 @@ const { class: className = "" } = Astro.props;
       Subscribe to the Newsletter
     </h2>
     
-    <form class="space-y-4" action="/?subscribed=true#subscribe-section" method="POST" id="subscribe-form" name="net-drip" data-netlify="true" netlify-honeypot="bot-field">
+    <form class="space-y-4" action="/?subscribed=true#subscribe-section" method="POST" id="subscribe-form" name="net-drip" data-webhook={import.meta.env.PUBLIC_HOOKDECK_NEWSLETTER_WEBHOOK ?? ""} data-success-param="subscribed" data-success-hash="subscribe-section">
       <p class="hidden">
         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
       </p>
@@ -42,6 +42,7 @@ const { class: className = "" } = Astro.props;
       >
         Subscribe to .NET drip
       </button>
+      <p class="hidden text-sm text-red-500" data-webhook-status role="alert"></p>
     </form>
     
     <p class="text-xs text-text-secondary text-center mt-4">
@@ -184,7 +185,9 @@ const { class: className = "" } = Astro.props;
       showSubscribeError("Please enter a valid email address");
       return;
     }
-    
-    // Validation passed - allow form to submit naturally
   });
+</script>
+
+<script>
+  import "../scripts/submit-to-webhook";
 </script>
