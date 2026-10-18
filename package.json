@@ -9,12 +9,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.15",
-    "@astrojs/sitemap": "^3.7.0",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.7",
-    "astro-expressive-code": "^0.41.7",
-    "sharp": "^0.34.5",
-    "tailwindcss": "^4.1.18"
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.0",
+    "astro-expressive-code": "^0.44.2",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "vite": "^8.3.4"
+  },
+  "overrides": {
+    "postcss-selector-parser": "^7.1.6"
   }
 }

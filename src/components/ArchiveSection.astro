@@ -37,7 +37,6 @@ if (hasBody) {
   </div>
 
   {hasBody ? (
-    <!-- New-style drip: tip preview + read more -->
     <div class="pl-2 space-y-4">
       <div class="p-5 bg-white dark:bg-[#111111] border border-border rounded-lg">
         <div class="tip-preview-wrapper">
@@ -63,7 +62,6 @@ if (hasBody) {
       <InlineSubscribe />
     </div>
   ) : (
-    <!-- Legacy drip: show all links -->
     <div class="space-y-3 pl-2">
       {links.map((link: any, index: number) => (
         <>
